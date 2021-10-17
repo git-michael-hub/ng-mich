@@ -1,0 +1,1345 @@
+<ng-container>
+    <section>
+        <h1>Directives</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="builtInTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="attributeTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="structuralTemplate"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #builtInTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Built-in directives
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #builtInContent>
+            <ng-container #description>
+                <p>Directives are classes that add additional behavior to elements in your Angular applications. With Angular's built-in directives, you can manage forms, lists, styles, and what users see.</p>
+                <p>The different types of Angular directives are as follows:</p>
+                <ol>
+                    <li>Components—directives with a template. This type of directive is the most common directive type.</li>
+                    <li>Attribute directives—directives that change the appearance or behavior of an element, component, or another directive.</li>
+                    <li>Structural directives—directives that change the DOM layout by adding and removing DOM elements.</li>
+                </ol>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Built-in attribute directives
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content1Content>
+                          <ng-container #description_1>
+                              <p>Attribute directives listen to and modify the behavior of other HTML elements, attributes, properties, and components.</p>
+                              <p>Many NgModules such as the RouterModule and the FormsModule define their own attribute directives. The most common attribute directives are as follows:</p>
+                              <ul>
+                                  <li>NgClass—adds and removes a set of CSS classes.</li>
+                                  <li>NgStyle—adds and removes a set of HTML styles.</li>
+                                  <li>NgModel—adds two-way data binding to an HTML form element.</li>
+                              </ul>
+
+                              <p class="note">Built-in directives use only public APIs. They do not have special access to any private APIs that other directives can't access.</p>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Adding and removing classes with NgClass
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content2Content>
+                            <ng-container #description_2>
+                                <p>You can add or remove multiple CSS classes simultaneously with ngClass.</p>
+                                <p class="note">To add or remove a single class, use class binding rather than NgClass.</p>
+                            </ng-container>
+
+                            <ng-container #content2_1>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Using NgClass with an expression
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                    
+                                        <ng-container #content2_1_Inner>
+                                            <p>On the element you'd like to style, add [ngClass] and set it equal to an expression. In this case, isSpecial is a boolean set to true in app.component.ts. Because isSpecial is true, ngClass applies the class of special to the < div>.</p>
+                                            <code-example code="
+                                                < !-- toggle the 'special' class on/off with a property -->
+                                                < div [ngClass]='isSpecial ? 'special' : '''>This div is special</div>
+                                            "></code-example>
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </ng-container>
+
+                            <ng-container #content3_1>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Using NgClass with a method
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                    
+                                        <ng-container #content3_1_Inner>
+                                            <ol>
+                                                <li>
+                                                    <p>To use NgClass with a method, add the method to the component class. In the following example, setCurrentClasses() sets the property currentClasses with an object that adds or removes three classes based on the true or false state of three other component properties.</p>
+                                                    <p>Each key of the object is a CSS class name. If a key is true, ngClass adds the class. If a key is false, ngClass removes the class.</p>
+                                                    <code-example code="
+                                                        currentClasses: Record<string, boolean> = {};
+                                                            /* . . . */
+                                                            setCurrentClasses() {
+                                                                // CSS classes: added/removed per current state of component properties
+                                                                this.currentClasses =  {
+                                                                    saveable: this.canSave,
+                                                                    modified: !this.isUnchanged,
+                                                                    special:  this.isSpecial
+                                                                };
+                                                            }
+                                                    "></code-example>
+                                                </li>
+                                                <li>
+                                                    <p>In the template, add the ngClass property binding to currentClasses to set the element's classes:</p>
+                                                    <code-example code="
+                                                        < div [ngClass]='currentClasses'>This div is initially saveable, unchanged, and special.</div>
+                                                    "></code-example>
+                                                </li>
+                                            </ol>
+
+                                            <p>For this use case, Angular applies the classes on initialization and in case of changes. The full example calls setCurrentClasses() initially with ngOnInit() and when the dependent properties change through a button click. These steps are not necessary to implement ngClass. For more information, see the live example / download example app.component.ts and app.component.html.</p>
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Setting inline styles with NgStyle
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content3Content>
+                          <ng-container #description_3>
+                              <p>You can use NgStyle to set multiple inline styles simultaneously, based on the state of the component.</p>
+                              <ol>
+                                  <li>
+                                      <p>To use NgStyle, add a method to the component class.</p>
+                                      <p>In the following example, setCurrentStyles() sets the property currentStyles with an object that defines three styles, based on the state of three other component properties.</p>
+                                      <code-example code="
+                                        currentStyles: Record<string, string> = {};
+                                            /* . . . */
+                                            setCurrentStyles() {
+                                            // CSS styles: set per current state of component properties
+                                            this.currentStyles = {
+                                                'font-style':  this.canSave      ? 'italic' : 'normal',
+                                                'font-weight': !this.isUnchanged ? 'bold'   : 'normal',
+                                                'font-size':   this.isSpecial    ? '24px'   : '12px'
+                                            };
+                                        }
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>To set the element's styles, add an ngStyle property binding to currentStyles.</p>
+                                      <code-example code="
+                                        < div [ngStyle]='currentStyles'>
+                                            This div is initially italic, normal weight, and extra large (24px).
+                                        </div>
+                                      "></code-example>
+                                  </li>
+                              </ol>
+                              <p>For this use case, Angular applies the styles upon initialization and in case of changes. To do this, the full example calls setCurrentStyles() initially with ngOnInit() and when the dependent properties change through a button click. However, these steps are not necessary to implement ngStyle on its own. See the live example / download example app.component.ts and app.component.html for this optional implementation.</p>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Displaying and updating properties with ngModel
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content4Content>
+                          <ng-container #description_4>
+                              <p>You can use the NgModel directive to display a data property and update that property when the user makes changes.</p>
+                              <ol>
+                                  <li>
+                                      <p>Import FormsModule and add it to the NgModule's imports list.</p>
+                                      <code-example code="
+                                      import { FormsModule } from '@angular/forms'; // <--- JavaScript import from Angular
+                                      /* . . . */
+                                      @NgModule({
+                                        /* . . . */
+                                      
+                                        imports: [
+                                          BrowserModule,
+                                          FormsModule // <--- import into the NgModule
+                                        ],
+                                        /* . . . */
+                                      })
+                                      export class AppModule { }
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>Add an [(ngModel)] binding on an HTML form element and set it equal to the property, here name.</p>
+                                      <code-example code="
+                                        < label for='example-ngModel'>[(ngModel)]:</label>
+                                        < input [(ngModel)]='currentItem.name' id='example-ngModel'>
+                                      "></code-example>
+                                      <p>This [(ngModel)] syntax can only set a data-bound property.</p>
+                                  </li>
+                              </ol>
+                              <p>To customize your configuration, you can write the expanded form, which separates the property and event binding. Use property binding to set the property and event binding to respond to changes. The following example changes the input value to uppercase:</p>
+                              <code-example code="
+                                < input [ngModel]='currentItem.name' (ngModelChange)='setUppercaseName($event)' id='example-uppercase'>
+                              "></code-example>
+
+                              <br>
+                              <h3>NgModel and value accessors</h3>
+                              <p>The NgModel directive works for an element supported by a ControlValueAccessor. Angular provides value accessors for all of the basic HTML form elements. For more information, see Forms.</p>
+                              <p>To apply [(ngModel)] to a non-form native element or a third-party custom component, you have to write a value accessor. For more information, see the API documentation on DefaultValueAccessor.</p>
+                              <p class="note">When you write an Angular component, you don't need a value accessor or NgModel if you name the value and event properties according to Angular's two-way binding syntax.</p>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content5>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Built-in structural directives
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content5Content>
+                          <ng-container #description_5>
+                              <p>Structural directives are responsible for HTML layout. They shape or reshape the DOM's structure, typically by adding, removing, and manipulating the host elements to which they are attached.</p>
+                              <p>This section introduces the most common built-in structural directives:</p>
+                              <ul>
+                                  <li>NgIf—conditionally creates or disposes of subviews from the template.</li>
+                                  <li>NgFor—repeat a node for each item in a list.</li>
+                                  <li>NgSwitch—a set of directives that switch among alternative views.</li>
+                              </ul>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content6>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Adding or removing an element with NgIf
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content6Content>
+                          <ng-container #description_6>
+                              <p>You can add or remove an element by applying an NgIf directive to a host element.</p>
+                              <p>When NgIf is false, Angular removes an element and its descendants from the DOM. Angular then disposes of their components, which frees up memory and resources.</p>
+                              <p>To add or remove an element, bind *ngIf to a condition expression such as isActive in the following example.</p>
+                              <code-example code="
+                                < app-item-detail *ngIf='isActive' [item]='item'></app-item-detail>
+                              "></code-example>
+
+                              <p>When the isActive expression returns a truthy value, NgIf adds the ItemDetailComponent to the DOM. When the expression is falsy, NgIf removes the ItemDetailComponent from the DOM and disposes of the component and all of its sub-components.</p>
+
+                              <br>
+                              <h3>Guarding against null</h3>
+                              <p>By default, NgIf prevents display of an element bound to a null value.</p>
+                              <p>To use NgIf to guard a div, add *ngIf="yourProperty" to the div. In the following example, the currentCustomer name appears because there is a currentCustomer.</p>
+                              <code-example code="
+                                < div *ngIf='currentCustomer'>Hello, {currentCustomer.name}</div>
+                              "></code-example>
+
+                              <p>However, if the property is null, Angular does not display the div. In this example, Angular does not display the nullCustomer because it is null.</p>
+                              <code-example code="
+                                < div *ngIf='nullCustomer'>Hello, < span>{nullCustomer}</span></div>
+                              "></code-example>
+                            </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content7>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Listing items with NgFor
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content7Content>
+                            <ng-container #description_7>
+                                <p>You can use the NgFor directive to present a list of items.</p>
+                                <ol>
+                                    <li>Define a block of HTML that determines how Angular renders a single item.</li>
+                                    <li>To list your items, assign the short hand let item of items to *ngFor.</li>
+                                </ol>
+                                <code-example code="
+                                    < div *ngFor='let item of items'>{item.name}</div>
+                                "></code-example>
+
+                                <p>The string "let item of items" instructs Angular to do the following:</p>
+                                <ul>
+                                    <li>Store each item in the items array in the local item looping variable</li>
+                                    <li>Make each item available to the templated HTML for each iteration</li>
+                                    <li>Translate "let item of items" into an ng-template around the host element</li>
+                                    <li>Repeat the ng-template for each item in the list</li>
+                                </ul>
+                            </ng-container>
+
+                            <ng-container #content7_1>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Repeating a component view
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                    
+                                        <ng-container #content7_1_Inner>
+                                            <p>To repeat a component element, apply *ngFor to the selector. In the following example, the selector is app-item-detail.</p>
+                                            <code-example code="
+                                                < app-item-detail *ngFor='let item of items' [item]='item'></app-item-detail>
+                                            "></code-example>
+
+                                            <p>You can reference a template input variable, such as item, in the following locations:</p>
+                                            <ul>
+                                                <li>within the ngFor host element</li>
+                                                <li>within the host element descendants to access the item's properties</li>
+                                            </ul>
+
+                                            <p>The following example references item first in an interpolation and then passes in a binding to the item property of the app-item-detail component.</p>
+                                            <code-example code="
+                                                < div *ngFor='let item of items'>{item.name}</div>
+                                                < !-- . . . -->
+                                                < app-item-detail *ngFor='let item of items' [item]='item'></app-item-detail>
+                                            "></code-example>
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </ng-container>
+
+                            <ng-container #content7_2>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Getting the index of *ngFor
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                    
+                                        <ng-container #content7_2_Inner>
+                                            <p>You can get the index of *ngFor in a template input variable and use it in the template.</p>
+                                            <p>In the *ngFor, add a semicolon and let i=index to the short hand. The following example gets the index in a variable named i and displays it with the item name.</p>
+                                            <code-example code="
+                                                < div *ngFor='let item of items; let i=index'>{i + 1} - {item.name}</div>
+                                            "></code-example>
+
+                                            <p>The index property of the NgFor directive context returns the zero-based index of the item in each iteration.</p>
+                                            <p>Angular translates this instruction into an ng-template around the host element, then uses this template repeatedly to create a new set of elements and bindings for each item in the list. For more information about shorthand, see the Structural Directives guide.</p>
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content8>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Repeating elements when a condition is true (trackBy)
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content8Content>
+                          <ng-container #description_8>
+                              <p>To repeat a block of HTML when a particular condition is true, put the *ngIf on a container element that wraps an *ngFor element. One or both elements can be an ng-container so you don't have to introduce extra levels of HTML.</p>
+                              <p>Because structural directives add and remove nodes from the DOM, apply only one structural directive per element.</p>
+                              <br>
+                              <h3>Tracking items with *ngFor trackBy</h3>
+                              <p>By tracking changes to an item list, you can reduce the number of calls your application makes to the server. With the *ngFor trackBy property, Angular can change and re-render only those items that have changed, rather than reloading the entire list of items.</p>
+                              <ol>
+                                  <li>
+                                      <p>Add a method to the component that returns the value NgFor should track. In this example, the value to track is the item's id. If the browser has already rendered id, Angular keeps track of it and doesn't re-query the server for the same id.</p>
+                                      <code-example code="
+                                        trackByItems(index: number, item: Item): number { return item.id; }
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>In the short hand expression, set trackBy to the trackByItems() method.</p>
+                                      <code-example code="
+                                        < div *ngFor='let item of items; trackBy: trackByItems'>
+                                            ({item.id}) {item.name}
+                                        </div>
+                                      "></code-example>
+                                  </li>
+                              </ol>
+
+                              <p>Change ids creates new items with new item.ids. In the following illustration of the trackBy effect, Reset items creates new items with the same item.ids.</p>
+                              <ul>
+                                  <li>With no trackBy, both buttons trigger complete DOM element replacement.</li>
+                                  <li>With trackBy, only changing the id triggers element replacement.</li>
+                              </ul>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content9>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Hosting a directive without a DOM element
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content9Content>
+                          <ng-container #description_9>
+                                <p>The Angular ng-container is a grouping element that doesn't interfere with styles or layout because Angular doesn't put it in the DOM.</p>
+                                <p>You can use ng-container when there's no single element to host the directive.</p>
+                                <p>Here's a conditional paragraph using ng-container.</p>
+
+                                <code-example code="
+                                    < p>
+                                        I turned the corner
+                                        < ng-container *ngIf='hero'>
+                                        and saw {hero.name}. I waved
+                                        </ng-container>
+                                        and continued on my way.
+                                    </p>
+                                "></code-example>
+
+                                <ol>
+                                    <li>Import the ngModel directive from FormsModule.</li>
+                                    <li>Add FormsModule to the imports section of the relevant Angular module.</li>
+                                    <li>To conditionally exclude an option, wrap the option in an ng-container.</li>
+                                </ol>
+                                <code-example code="
+                                    < div>
+                                        Pick your favorite hero
+                                        (< label>< input type='checkbox' checked (change)='showSad = !showSad'>show sad</label>)
+                                    </div>
+                                    < select [(ngModel)]='hero'>
+                                        < ng-container *ngFor='let h of heroes'>
+                                        < ng-container *ngIf='showSad || h.emotion !== 'sad''>
+                                            < option [ngValue]='h'>{h.name} ({h.emotion})</option>
+                                        </ng-container>
+                                        </ng-container>
+                                    </select>
+                                "></code-example>
+                            </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content10>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Switching cases with NgSwitch
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content10Content>
+                          <ng-container #description_10>
+                              <p>Like the JavaScript switch statement, NgSwitch displays one element from among several possible elements, based on a switch condition. Angular puts only the selected element into the DOM.</p>
+                              <p>NgSwitch is a set of three directives:</p>
+                              <ul>
+                                  <li>NgSwitch—an attribute directive that changes the behavior of its companion directives.</li>
+                                  <li>NgSwitchCase—structural directive that adds its element to the DOM when its bound value equals the switch value and removes its bound value when it doesn't equal the switch value.</li>
+                                  <li>NgSwitchDefault—structural directive that adds its element to the DOM when there is no selected NgSwitchCase.</li>
+                              </ul>
+
+                              <ol>
+                                  <li>
+                                      <p>On an element, such as a div, add [ngSwitch] bound to an expression that returns the switch value, such as feature. Though the feature value in this example is a string, the switch value can be of any type.</p>
+                                  </li>
+                                  <li>
+                                      <p>Bind to *ngSwitchCase and *ngSwitchDefault on the elements for the cases.</p>
+                                      <code-example code="
+                                        < div [ngSwitch]='currentItem.feature'>
+                                            < app-stout-item    *ngSwitchCase=''stout''    [item]='currentItem'></app-stout-item>
+                                            < app-device-item   *ngSwitchCase=''slim''     [item]='currentItem'></app-device-item>
+                                            < app-lost-item     *ngSwitchCase=''vintage''  [item]='currentItem'></app-lost-item>
+                                            < app-best-item     *ngSwitchCase=''bright''   [item]='currentItem'></app-best-item>
+                                        <!-- . . . -->
+                                            < app-unknown-item  *ngSwitchDefault           [item]='currentItem'></app-unknown-item>
+                                        </div>
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>In the parent component, define currentItem so you can use it in the [ngSwitch] expression.</p>
+                                      <code-example code="
+                                        currentItem!: Item;
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>In each child component, add an item input property which is bound to the currentItem of the parent component. The following two snippets show the parent component and one of the child components. The other child components are identical to StoutItemComponent.</p>
+                                      <code-example code="
+                                      export class StoutItemComponent {
+                                        @Input() item!: Item;
+                                      }
+                                      "></code-example>
+                                  </li>
+                              </ol>
+                              <p>Switch directives also work with native HTML elements and web components. For example, you could replace the app-best-item switch case with a div as follows.</p>
+                              <code-example code="
+                                < div *ngSwitchCase=''bright''> Are you as bright as {currentItem.name}?</div>
+                              "></code-example>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #attributeTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Attribute directives
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #overviewContent>
+            <ng-container #description>
+                <p>With attribute directives, you can change the appearance or behavior of DOM elements and Angular components.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Building an attribute directive
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content1Content>
+                          <ng-container #description_1>
+                              <p>This section walks you through creating a highlight directive that sets the background color of the host element to yellow.</p>
+                              <ol>
+                                  <li>
+                                      <p>To create a directive, use the CLI command ng generate directive.</p>
+                                      <code-example code="
+                                        ng generate directive highlight
+                                      "></code-example>
+
+                                      <p>The CLI creates src/app/highlight.directive.ts, a corresponding test file src/app/highlight.directive.spec.ts, and declares the directive class in the AppModule.</p>
+                                      <p>The CLI generates the default src/app/highlight.directive.ts as follows:</p>
+                                      <code-example code="
+                                      import { Directive } from '@angular/core';
+
+                                      @Directive({
+                                        selector: '[appHighlight]'
+                                      })
+                                      export class HighlightDirective {
+                                        constructor() { }
+                                      }
+                                      "></code-example>
+
+                                      <p>The @Directive() decorator's configuration property specifies the directive's CSS attribute selector, [appHighlight].</p>
+                                  </li>
+                                  <li>
+                                      <p>Import ElementRef from @angular/core. ElementRef grants direct access to the host DOM element through its nativeElement property.</p>
+                                  </li>
+                                  <li>
+                                      <p>Add ElementRef in the directive's constructor() to inject a reference to the host DOM element, the element to which you apply appHighlight.</p>
+                                  </li>
+                                  <li>
+                                      <p>Add logic to the HighlightDirective class that sets the background to yellow.</p>
+                                      <code-example code="
+                                      import { Directive, ElementRef } from '@angular/core';
+
+                                      @Directive({
+                                        selector: '[appHighlight]'
+                                      })
+                                      export class HighlightDirective {
+                                          constructor(el: ElementRef) {
+                                             el.nativeElement.style.backgroundColor = 'yellow';
+                                          }
+                                      }
+                                      "></code-example>
+
+                                      <span class="note">
+                                          <p>Directives do not support namespaces.</p>
+                                          <code-example code="
+                                          < p app:Highlight>This is invalid</p>
+                                          "></code-example>
+                                      </span>
+                                  </li>
+                              </ol>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Applying an attribute directive
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content2Content>
+                          <ng-container #description_2>
+                              <p>To use the HighlightDirective, add a p element to the HTML template with the directive as an attribute.</p>
+                              <code-example code="
+                              < p appHighlight>Highlight me!</p>
+                              "></code-example>
+                              <p>Angular creates an instance of the HighlightDirective class and injects a reference to the p element into the directive's constructor, which sets the p element's background style to yellow.</p>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Handling user events
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content3Content>
+                          <ng-container #description_3>
+                              <p>This section shows you how to detect when a user mouses into or out of the element and to respond by setting or clearing the highlight color.</p>
+                              <ol>
+                                  <li>
+                                      <p>Import HostListener from '@angular/core'.</p>
+                                      <code-example code="
+                                      import { Directive, ElementRef, HostListener } from '@angular/core';
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>Add two event handlers that respond when the mouse enters or leaves, each with the @HostListener() decorator.</p>
+                                      <code-example code="
+                                      @HostListener('mouseenter') onMouseEnter() {
+                                        this.highlight('yellow');
+                                      }
+                                      
+                                      @HostListener('mouseleave') onMouseLeave() {
+                                        this.highlight('');
+                                      }
+                                      
+                                      private highlight(color: string) {
+                                        this.el.nativeElement.style.backgroundColor = color;
+                                      }
+                                      "></code-example>
+                                      <p>With the @HostListener() decorator, you can subscribe to events of the DOM element that hosts an attribute directive, the p in this case.</p>
+                                      <p>The handlers delegate to a helper method, highlight(), that sets the color on the host DOM element, el.</p>
+                                  </li>
+                              </ol>
+
+                              <p>The complete directive is as follows:</p>
+                              <code-example code="
+                              @Directive({
+                                selector: '[appHighlight]'
+                              })
+                              export class HighlightDirective {
+                              
+                                constructor(private el: ElementRef) { }
+                              
+                                @HostListener('mouseenter') onMouseEnter() {
+                                  this.highlight('yellow');
+                                }
+                              
+                                @HostListener('mouseleave') onMouseLeave() {
+                                  this.highlight('');
+                                }
+                              
+                                private highlight(color: string) {
+                                  this.el.nativeElement.style.backgroundColor = color;
+                                }
+                              
+                              }
+                              "></code-example>
+                              <p>The background color appears when the pointer hovers over the paragraph element and disappears as the pointer moves out.</p>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Passing values into an attribute directive
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content4Content>
+                          <ng-container #description_4>
+                              <p>This section walks you through setting the highlight color while applying the HighlightDirective.</p>
+                              <ol>
+                                  <li>
+                                      <p>In highlight.directive.ts, import Input from @angular/core.</p>
+                                      <code-example code="
+                                      import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>Add an appHighlight @Input() property.</p>
+                                      <code-example code="
+                                      @Input() appHighlight = '';
+                                      "></code-example>
+
+                                      <p>The @Input() decorator adds metadata to the class that makes the directive's appHighlight property available for binding.</p>
+                                  </li>
+                                  <li>
+                                      <p>In app.component.ts, add a color property to the AppComponent.</p>
+                                      <code-example code="
+                                      export class AppComponent {
+                                        color = 'yellow';
+                                      }
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>To simultaneously apply the directive and the color, use property binding with the appHighlight directive selector, setting it equal to color.</p>
+                                      <code-example code="
+                                      < p [appHighlight]='color'>Highlight me!</p>
+                                      "></code-example>
+
+                                      <p>The [appHighlight] attribute binding performs two tasks:</p>
+                                      <ul>
+                                          <li>applies the highlighting directive to the p element</li>
+                                          <li>sets the directive's highlight color with a property binding</li>
+                                      </ul>
+                                  </li>
+                              </ol>
+                              
+                              <br>
+                              <h3>Setting the value with user input</h3>
+                              <p>This section guides you through adding radio buttons to bind your color choice to the appHighlight directive.</p>
+                              <ol>
+                                  <li>
+                                      <p>Add markup to app.component.html for choosing a color as follows:</p>
+                                      <code-example code="
+                                      < h1>My First Attribute Directive</h1>
+
+                                      < h2>Pick a highlight color</h2>
+                                      < div>
+                                        < input type='radio' name='colors' (click)='color='lightgreen''>Green
+                                        < input type='radio' name='colors' (click)='color='yellow''>Yellow
+                                        < input type='radio' name='colors' (click)='color='cyan''>Cyan
+                                      </div>
+                                      < p [appHighlight]='color'>Highlight me!</p>
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>Revise the AppComponent.color so that it has no initial value.</p>
+                                      <code-example code="
+                                      export class AppComponent {
+                                        color = '';
+                                      }
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>Serve your application to verify that the user can choose the color with the radio buttons.</p>
+                                  </li>
+                              </ol>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content5>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Binding to a second property
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content5Content>
+                          <ng-container #description_5>
+                                <p>This section guides you through configuring your application so the developer can set the default color.</p>
+                                <ol>
+                                    <li>
+                                        <p>Add a second Input() property to HighlightDirective called defaultColor.</p>
+                                        <code-example code="
+                                        @Input() defaultColor = '';
+                                        "></code-example>
+                                    </li>
+                                    <li>
+                                        <p>Revise the directive's onMouseEnter so that it first tries to highlight with the highlightColor, then with the defaultColor, and falls back to red if both properties are undefined.</p>
+                                        <code-example code="
+                                        @HostListener('mouseenter') onMouseEnter() {
+                                            this.highlight(this.highlightColor || this.defaultColor || 'red');
+                                        }
+                                        "></code-example>
+                                    </li>
+                                    <li>
+                                        <p>To bind to the AppComponent.color and fall back to "violet" as the default color, add the following HTML. In this case, the defaultColor binding doesn't use square brackets, [], because it is static.</p>
+                                        <code-example code="
+                                            < p [appHighlight]='color' defaultColor='violet'>
+                                             Highlight me too!
+                                            </p>
+                                        "></code-example>
+                                        <p>As with components, you can add multiple directive property bindings to a host element.</p>
+                                    </li>
+                                </ol>
+
+                                <p>The default color is red if there is no default color binding. When the user chooses a color the selected color becomes the active highlight color.</p>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content6>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Deactivating Angular processing with NgNonBindable
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content6Content>
+                          <ng-container #description_6>
+                              <p>To prevent expression evaluation in the browser, add ngNonBindable to the host element. ngNonBindable deactivates interpolation, directives, and binding in templates.</p>
+                              <p>In the following example, the expression {{ '{{ 1 + 1 }}' }} renders just as it does in your code editor, and does not display 2.</p>
+                              <code-example code="
+                              < p>Use ngNonBindable to stop evaluation.</p>
+                              < p ngNonBindable>This should not evaluate: { 1 + 1 }</p>
+                              "></code-example>
+
+                              <p>Applying ngNonBindable to an element stops binding for that element's child elements. However, ngNonBindable still allows directives to work on the element where you apply ngNonBindable. In the following example, the appHighlight directive is still active but Angular does not evaluate the expression {{ '{{1 + 1}}' }}.</p>
+                              <code-example code="
+                              < h3>ngNonBindable with a directive</h3>
+                              < div ngNonBindable [appHighlight]=''yellow''>This should not evaluate: { 1 +1 }, but will highlight yellow.
+                              </div>
+                              "></code-example>
+
+                              <p>If you apply ngNonBindable to a parent element, Angular disables interpolation and binding of any sort, such as property binding or event binding, for the element's children.</p>
+                          </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #structuralTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Writing structural directives
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #overviewContent>
+            <ng-container #description>
+                <p>This topic demonstrates how to create a structural directive and provides conceptual information on how directives work, how Angular interprets shorthand, and how to add template guard properties to catch template type errors.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Creating a structural directive
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content1Content>
+                          <ng-container #description_1>
+                              <p>This section guides you through creating an UnlessDirective and how to set condition values. The UnlessDirective does the opposite of NgIf, and condition values can be set to true or false. NgIf displays the template content when the condition is true. UnlessDirective displays the content when the condition is false.</p>
+                              <p>Following is the UnlessDirective selector, appUnless, applied to the paragraph element. When condition is false, the browser displays the sentence.</p>
+                              <code-example code="
+                              < p *appUnless='condition'>Show this sentence unless the condition is true.</p>
+                              "></code-example>
+
+                              <ol>
+                                  <li>
+                                      <p>Using the Angular CLI, run the following command, where unless is the name of the directive:</p>
+                                      <code-example code="
+                                      ng generate directive unless
+                                      "></code-example>
+                                      <p>Angular creates the directive class and specifies the CSS selector, appUnless, that identifies the directive in a template.</p>
+                                  </li>
+                                  <li>
+                                      <p>Import Input, TemplateRef, and ViewContainerRef.</p>
+                                      <code-example code="
+                                      import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+                                      @Directive({ selector: '[appUnless]'})
+                                      export class UnlessDirective {
+                                      }
+                                      "></code-example>
+                                  </li>
+                                  <li>
+                                      <p>Inject TemplateRef and ViewContainerRef in the directive constructor as private variables.</p>
+                                      <code-example code="
+                                      constructor(
+                                        private templateRef: TemplateRef<any>,
+                                        private viewContainer: ViewContainerRef) { }
+                                      "></code-example>
+                                      <p>The UnlessDirective creates an embedded view from the Angular-generated ng-template and inserts that view in a view container adjacent to the directive's original p host element.</p>
+                                      <p>TemplateRef helps you get to the ng-template contents and ViewContainerRef accesses the view container.</p>
+                                  </li>
+                                  <li>
+                                      <p>Add an appUnless @Input() property with a setter.</p>
+                                      <code-example code="
+                                      @Input() set appUnless(condition: boolean) {
+                                        if (!condition && !this.hasView) {
+                                          this.viewContainer.createEmbeddedView(this.templateRef);
+                                          this.hasView = true;
+                                        } else if (condition && this.hasView) {
+                                          this.viewContainer.clear();
+                                          this.hasView = false;
+                                        }
+                                      }
+                                      "></code-example>
+
+                                      <p>Angular sets the appUnless property whenever the value of the condition changes.</p>
+                                      <ul>
+                                          <li>If the condition is falsy and Angular hasn't created the view previously, the setter causes the view container to create the embedded view from the template.</li>
+                                          <li>If the condition is truthy and the view is currently displayed, the setter clears the container, which disposes of the view.</li>
+                                      </ul>
+                                  </li>
+                              </ol>
+
+                              <p>The complete directive is as follows:</p>
+                              <code-example code="
+                              import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+                              /**
+                               * Add the template content to the DOM unless the condition is true.
+                               */
+                              @Directive({ selector: '[appUnless]'})
+                              export class UnlessDirective {
+                                private hasView = false;
+                              
+                                constructor(
+                                  private templateRef: TemplateRef< any>,
+                                  private viewContainer: ViewContainerRef) { }
+                              
+                                @Input() set appUnless(condition: boolean) {
+                                  if (!condition && !this.hasView) {
+                                    this.viewContainer.createEmbeddedView(this.templateRef);
+                                    this.hasView = true;
+                                  } else if (condition && this.hasView) {
+                                    this.viewContainer.clear();
+                                    this.hasView = false;
+                                  }
+                                }
+                              }
+                              "></code-example>
+                          </ng-container>
+
+                          <ng-container #content1_1>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Testing the directive
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                  
+                                    <ng-container #content1Content_1>
+                                      <ng-container #description_1_1>
+                                          <p>In this section, you'll update your application to test the UnlessDirective.</p>
+                                          <ol>
+                                              <li>
+                                                  <p>Add a condition set to false in the AppComponent.</p>
+                                                  <code-example code="
+                                                  condition = false;
+                                                  "></code-example>
+                                              </li>
+                                              <li>
+                                                  <p>Update the template to use the directive. Here, *appUnless is on two p tags with opposite condition values, one true and one false.</p>
+                                                  <code-example code="
+                                                  < p *appUnless='condition' class='unless a'>
+                                                    (A) This paragraph is displayed because the condition is false.
+                                                  </p>
+                                                  
+                                                  < p *appUnless='!condition' class='unless b'>
+                                                    (B) Although the condition is true,
+                                                    this paragraph is displayed because appUnless is set to false.
+                                                  </p>
+                                                  "></code-example>
+
+                                                  <p>The asterisk is shorthand that marks appUnless as a structural directive. When the condition is falsy, the top (A) paragraph appears and the bottom (B) paragraph disappears.</p>
+                                                  <p>When the condition is truthy, the top (A) paragraph disappears and the bottom (B) paragraph appears.</p>
+                                              </li>
+                                              <li>
+                                                  <p>To change and display the value of condition in the browser, add markup that displays the status and a button.</p>
+                                                  <code-example code="
+                                                  < p>
+                                                    The condition is currently
+                                                    < span [ngClass]='{ 'a': !condition, 'b': condition, 'unless': true '>{condition}</span>.
+                                                    < button
+                                                      (click)='condition = !condition'
+                                                      [ngClass] = '{ 'a': condition, 'b': !condition }' >
+                                                      Toggle condition to {condition ? 'false' : 'true'}
+                                                    </button>
+                                                  </p>
+                                                  "></code-example>
+                                              </li>
+                                          </ol>
+                                      </ng-container>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Structural directive shorthand
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content2Content>
+                          <ng-container #description_2>
+                              <p>The asterisk, *, syntax on a structural directive, such as *ngIf, is shorthand that Angular interprets into a longer form. Angular transforms the asterisk in front of a structural directive into an ng-template that surrounds the host element and its descendants.</p>
+                              <p>The following is an example of *ngIf that displays the hero's name if hero exists:</p>
+
+                              <code-example code="
+                              < div *ngIf='hero' class='name'>{hero.name}</div>
+                              "></code-example>
+
+                              <p>The *ngIf directive moves to the ng-template where it becomes a property binding in square brackets, [ngIf]. The rest of the div, including its class attribute, moves inside the ng-template.</p>
+                              <code-example code="
+                              < ng-template [ngIf]='hero'>
+                                < div class='name'>{hero.name}</div>
+                              </ng-template>
+                              "></code-example>
+
+                              <p>Angular does not create a real ng-template element, instead rendering only the div and a comment node placeholder to the DOM.</p>
+                              <code-example code="
+                              <! --bindings={
+                                'ng-reflect-ng-if': '[object Object]'
+                              }-->
+                              <div _ngcontent-c0>Mr. Nice</div>
+                              "></code-example>
+
+                              <p>The following example compares the shorthand use of the asterisk in *ngFor with the longhand ng-template form:</p>
+                              <code-example code="
+                              < div *ngFor='let hero of heroes; let i=index; let odd=odd; trackBy: trackById' [class.odd]='odd'>
+                                ({i}) {hero.name}
+                              </div>
+                              
+                              < ng-template ngFor let-hero [ngForOf]='heroes' let-i='index' let-odd='odd' [ngForTrackBy]='trackById'>
+                                <div [class.odd]='odd'>({i}) {hero.name}</div>
+                              </ng-template>
+                              "></code-example>
+
+                              <p>Here, everything related to the ngFor structural directive applies to the ng-template. All other bindings and attributes on the element apply to the div element within the ng-template. Other modifiers on the host element, in addition to the ngFor string, remain in place as the element moves inside the ng-template. In this example, the [class.odd]="odd" stays on the div.</p>
+                              <p>The let keyword declares a template input variable that you can reference within the template. The input variables in this example are hero, i, and odd. The parser translates let hero, let i, and let odd into variables named let-hero, let-i, and let-odd. The let-i and let-odd variables become let i=index and let odd=odd. Angular sets i and odd to the current value of the context's index and odd properties.</p>
+                              <p>The parser applies PascalCase to all directives and prefixes them with the directive's attribute name, such as ngFor. For example, the ngFor input properties, of and trackBy, map to ngForOf and ngForTrackBy. As the NgFor directive loops through the list, it sets and resets properties of its own context object. These properties can include, but aren't limited to, index, odd, and a special property named $implicit.</p>
+                              <p>Angular sets let-hero to the value of the context's $implicit property, which NgFor has initialized with the hero for the current iteration.</p>
+                          </ng-container>
+
+                          <ng-container #content2_1>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Creating template fragments with ng-template
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                  
+                                    <ng-container #content2Content_1>
+                                      <ng-container #description_2_1>
+                                            <p>Angular's ng-template element defines a template that doesn't render anything by default. With ng-template, you can render the content manually for full control over how the content displays.</p>
+                                            <p>If there is no structural directive and you wrap some elements in an ng-template, those elements disappear. In the following example, Angular does not render the middle "Hip!" in the phrase "Hip! Hip! Hooray!" because of the surrounding ng-template.</p>
+                                            <code-example code="
+                                            < p>Hip!</p>
+                                            < ng-template>
+                                              < p>Hip!</p>
+                                            </ng-template>
+                                            < p>Hooray!</p>
+                                            "></code-example>
+                                      </ng-container>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Structural directive syntax reference
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content3Content>
+                          <ng-container #description_3>
+                              <p>When you write your own structural directives, use the following syntax:</p>
+                              <code-example code="
+                              *:prefix='( :let | :expression ) (';' | ',')? ( :let | :as | :keyExp )*'
+                              "></code-example>
+
+                              <p>The following tables describe each portion of the structural directive grammar:</p>
+                              <p>prefix	- HTML attribute key</p>
+                              <p>key - HTML attribute key</p>
+                              <p>local - local variable name used in the template</p>
+                              <p>export - value exported by the directive under a given name</p>
+                              <p>expression - standard Angular expression</p>
+
+                              <br>
+                              <p>keyExp = :key ":"? :expression ("as" :local)? ";"?</p>
+                              <p>let = "let" :local "=" :export ";"?</p>
+                              <p>as = :export "as" :local ";"?</p>
+                          </ng-container>
+
+                            <ng-container #content3_1>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                How Angular translates shorthand
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                    
+                                        <ng-container #content3Content_1>
+                                         <ng-container #description_3_1>
+                                             <p>Angular translates structural directive shorthand into the normal binding syntax as follows:</p>
+
+                                             <table>
+                                                 <thead>
+                                                     <td>Shorthand</td>
+                                                     <td>Translation</td>
+                                                 </thead>
+                                                 <tbody>
+                                                     <tr>
+                                                         <td>prefix and naked expression</td>
+                                                         <td>[prefix]="expression"</td>
+                                                     </tr>
+                                                     <tr>
+                                                        <td>keyExp</td>
+                                                        <td>[prefixKey] "expression" (let-prefixKey="export")
+                                                            Notice that the prefix is added to the key</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>let</td>
+                                                        <td>let-local="export"</td>
+                                                    </tr>
+                                                 </tbody>
+                                             </table>
+                                         </ng-container>
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </ng-container>
+
+                            <ng-container #content3_2>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Shorthand examples
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                    
+                                        <ng-container #content3Content_2>
+                                        <ng-container #description_3_2>
+                                            <p>The following table provides shorthand examples:</p>
+
+                                            <table>
+                                                <thead>
+                                                    <td>Shorthand</td>
+                                                    <td>How Angular interprets the syntax</td>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>*ngFor="let item of [1,2,3]"</td>
+                                                        <td>
+                                                            ng-template ngFor let-item [ngForOf]='[1,2,3]'
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>*ngFor="let item of [1,2,3] as items; trackBy: myTrack; index as i"</td>
+                                                        <td>ng-template ngFor let-item [ngForOf]="[1,2,3]" let-items="ngForOf" [ngForTrackBy]="myTrack" let-i="index"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>*ngIf="exp"</td>
+                                                        <td>ng-template [ngIf]="exp"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>*ngIf="exp as value"</td>
+                                                        <td>ng-template [ngIf]="exp" let-value="ngIf"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </ng-container>
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Improving template type checking for custom directives
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+      
+                        <ng-container #content4Content>
+                            <ng-container #description_4>
+                                <p>You can improve template type checking for custom directives by adding template guard properties to your directive definition. These properties help the Angular template type checker find mistakes in the template at compile time, which can avoid runtime errors. These properties are as follows:</p>
+                                <ul>
+                                    <li>A property ngTemplateGuard_(someInputProperty) lets you specify a more accurate type for an input expression within the template.</li>
+                                    <li>The ngTemplateContextGuard static property declares the type of the template context.</li>
+                                </ul>
+                                <p>This section provides examples of both kinds of type-guard property. For more information, see Template type checking.</p>
+                            </ng-container>
+
+                            <ng-container #content4_1>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Making in-template type requirements more specific with template guards
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                    
+                                        <ng-container #content4Content_1>
+                                            <ng-container #description_4_1>
+                                                <p>A structural directive in a template controls whether that template is rendered at run time, based on its input expression. To help the compiler catch template type errors, you should specify as closely as possible the required type of a directive's input expression when it occurs inside the template.</p>
+                                                <p>A type guard function narrows the expected type of an input expression to a subset of types that might be passed to the directive within the template at run time. You can provide such a function to help the type-checker infer the proper type for the expression at compile time.</p>
+                                                <p>For example, the NgIf implementation uses type-narrowing to ensure that the template is only instantiated if the input expression to *ngIf is truthy. To provide the specific type requirement, the NgIf directive defines a static property ngTemplateGuard_ngIf: 'binding'. The binding value is a special case for a common kind of type-narrowing where the input expression is evaluated in order to satisfy the type requirement.</p>
+                                                <p>To provide a more specific type for an input expression to a directive within the template, add an ngTemplateGuard_xx property to the directive, where the suffix to the static property name, xx, is the @Input() field name. The value of the property can be either a general type-narrowing function based on its return type, or the string "binding", as in the case of NgIf.</p>
+                                                <p>For example, consider the following structural directive that takes the result of a template expression as an input:</p>
+                                                <code-example code="
+                                                export type Loaded = { type: 'loaded', data: T };
+                                                export type Loading = { type: 'loading' };
+                                                export type LoadingState = Loaded | Loading;
+                                                export class IfLoadedDirective {
+                                                    @Input('ifLoaded') set state(state: LoadingState) {}
+                                                    static ngTemplateGuard_state(dir: IfLoadedDirective, expr: LoadingState): expr is Loaded { return true; };
+                                                }
+                                                
+                                                export interface Person {
+                                                  name: string;
+                                                }
+                                                
+                                                @Component({
+                                                  template: `< div *ifLoaded='state'>{state.data }</div>`,
+                                                })
+                                                export class AppComponent {
+                                                  state: LoadingState;
+                                                }
+                                                "></code-example>
+
+                                                <p>In this example, the LoadingState[T] type permits either of two states, Loaded[T] or Loading. The expression used as the directive’s state input is of the umbrella type LoadingState, as it’s unknown what the loading state is at that point.</p>
+                                                <p>The IfLoadedDirective definition declares the static field ngTemplateGuard_state, which expresses the narrowing behavior. Within the AppComponent template, the *ifLoaded structural directive should render this template only when state is actually Loaded[Person]. The type guard allows the type checker to infer that the acceptable type of state within the template is a Loaded[T], and further infer that T must be an instance of Person.</p>
+                                            </ng-container>
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </ng-container>
+
+                            <ng-container #content4_2>
+                                <mat-accordion>
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                Typing the directive's context
+                                            </mat-panel-title>
+                                        </mat-expansion-panel-header>
+                    
+                                        <ng-container #content4Content_2>
+                                            <ng-container #description_4_2>
+                                                <p>If your structural directive provides a context to the instantiated template, you can properly type it inside the template by providing a static ngTemplateContextGuard function. The following snippet shows an example of such a function.</p>
+                                                <code-example code="
+                                                @Directive({…})
+                                                export class ExampleDirective {
+                                                    // Make sure the template checker knows the type of the context with which the
+                                                    // template of this directive will be rendered
+                                                    static ngTemplateContextGuard(dir: ExampleDirective, ctx: unknown): ctx is ExampleContext { return true; };
+                                                
+                                                    // …
+                                                }
+                                                "></code-example>
+                                            </ng-container>
+                                        </ng-container>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </ng-container>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>

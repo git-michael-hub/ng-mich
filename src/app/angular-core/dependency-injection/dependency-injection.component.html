@@ -1,0 +1,569 @@
+<ng-container>
+    <section>
+        <h1>Dependency Injection</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="overviewTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="diProvidersTemplate"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+<ng-template #overviewTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Overview
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #overviewContent>
+            <ng-container #description>
+                <p>Dependencies are services or objects that a class needs to perform its function. Dependency injection, or DI, is a design pattern in which a class requests dependencies from external sources rather than creating them.</p>
+                <p>Angular's DI framework provides dependencies to a class upon instantiation. You can use Angular DI to increase flexibility and modularity in your applications.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Creating an injectable service
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content1Content>
+                          <ng-container #description_1>
+                              <p>To generate a new HeroService class in the src/app/heroes folder use the following Angular CLI command.</p>
+                              <code-example code="
+                              ng generate service heroes/hero
+                              "></code-example>
+
+                              <p>This command creates the following default HeroService.</p>
+                              <code-example code="
+                              import { Injectable } from '@angular/core';
+
+                              @Injectable({
+                                providedIn: 'root',
+                              })
+                              export class HeroService {
+                                constructor() { }
+                              }
+                              "></code-example>
+
+                              <p>The @Injectable() decorator specifies that Angular can use this class in the DI system. The metadata, providedIn: 'root', means that the HeroService is visible throughout the application.</p>
+                              <p>Next, to get the hero mock data, add a getHeroes() method that returns the heroes from mock.heroes.ts.</p>
+
+                              <code-example code="
+                              import { Injectable } from '@angular/core';
+                              import { HEROES } from './mock-heroes';
+                              
+                              @Injectable({
+                                // declares that this service should be created
+                                // by the root application injector.
+                                providedIn: 'root',
+                              })
+                              export class HeroService {
+                                getHeroes() { return HEROES; }
+                              }
+                              "></code-example>
+
+                              <p>For clarity and maintainability, it is recommended that you define components and services in separate files.</p>
+                              <p>If you do combine a component and service in the same file, it is important to define the service first, and then the component. If you define the component before the service, Angular returns a run-time null reference error.</p>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Injecting services
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content2Content>
+                          <ng-container #description_2>
+                              <p>Injecting services results in making them visible to a component.</p>
+                              <p>To inject a dependency in a component's constructor(), supply a constructor argument with the dependency type. The following example specifies the HeroService in the HeroListComponent constructor. The type of heroService is HeroService.</p>
+                              <code-example code="
+                              constructor(heroService: HeroService)
+                              "></code-example>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Using services in other services
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content3Content>
+                          <ng-container #description_3>
+                              <p>When a service depends on another service, follow the same pattern as injecting into a component. In the following example HeroService depends on a Logger service to report its activities.</p>
+                              <p>First, import the Logger service. Next, inject the Logger service in the HeroService constructor() by specifying private logger: Logger within the parentheses.</p>
+                              <p>When you create a class whose constructor() has parameters, specify the type and metadata about those parameters so that Angular can inject the correct service.</p>
+                              <p>Here, the constructor() specifies a type of Logger and stores the instance of Logger in a private field called logger.</p>
+                              <p>The following code tabs feature the Logger service and two versions of HeroService. The first version of HeroService does not depend on the Logger service. The revised second version does depend on Logger service.</p>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+
+<ng-template #diProvidersTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Dependency providers
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #diProvidersContent>
+            <ng-container #description>
+                <p>By configuring providers, you can make services available to the parts of your application that need them.</p>
+                <p>A dependency provider configures an injector with a DI token, which that injector uses to provide the runtime version of a dependency value.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Specifying a provider token
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content1Content>
+                          <ng-container #description_1>
+                              <p>If you specify the service class as the provider token, the default behavior is for the injector to instantiate that class with new.</p>
+                              <p>In the following example, the Logger class provides a Logger instance.</p>
+                              <code-example code="
+                              providers: [Logger]
+                              "></code-example>
+
+                              <p>You can, however, configure an injector with an alternative provider in order to deliver some other object that provides the needed logging functionality.</p>
+                              <p>You can configure an injector with a service class, you can provide a substitute class, an object, or a factory function.</p>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Dependency injection tokens
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content2Content>
+                          <ng-container #description_2>
+                              <p>When you configure an injector with a provider, you are associating that provider with a dependency injection token, or DI token. The injector allows Angular to create a map of any internal dependencies. The DI token acts as a key to that map.</p>
+                              <p>The dependency value is an instance, and the class type serves as a lookup key. Here, the injector uses the HeroService type as the token for looking up heroService.</p>
+                              <code-example code="
+                              heroService: HeroService;
+                              "></code-example>
+
+                              <p>When you define a constructor parameter with the HeroService class type, Angular knows to inject the service associated with that HeroService class token:</p>
+                              <code-example code="
+                              constructor(heroService: HeroService)
+                              "></code-example>
+
+                              <p>Though classes provide many dependency values, the expanded provide object lets you associate different kinds of providers with a DI token.</p>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Defining providers
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content3Content>
+                          <ng-container #description_3>
+                            <p>The class provider syntax is a shorthand expression that expands into a provider configuration, defined by the Provider interface. The following example is the class provider syntax for providing a Logger class in the providers array.</p>
+                            <code-example code="
+                              providers: [Logger]
+                            "></code-example>
+
+                            <p>Angular expands the providers value into a full provider object as follows.</p>
+                            <code-example code="
+                            [{ provide: Logger, useClass: Logger }]
+                            "></code-example>
+
+                            <p>The expanded provider configuration is an object literal with two properties:</p>
+                            <ul>
+                              <li>The provide property holds the token that serves as the key for both locating a dependency value and configuring the injector.</li>
+                              <li>The second property is a provider definition object, which tells the injector how to create the dependency value. The provider-definition key can be useClass, as in the example. It can also be useExisting, useValue, or useFactory. Each of these keys provides a different type of dependency, as discussed below.</li>
+                            </ul>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Specifying an alternative class provider
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content4Content>
+                          <ng-container #description_4>
+                            <p>Different classes can provide the same service. For example, the following code tells the injector to return a BetterLogger instance when the component asks for a logger using the Logger token.</p>
+                            <code-example code="
+                            [{ provide: Logger, useClass: BetterLogger }]
+                            "></code-example>
+                          </ng-container>
+
+                          <ng-container #content4_1>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                          Configuring class providers with dependencies
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content4_1_Inner>
+                                      <p>If the alternative class providers have their own dependencies, specify both providers in the providers metadata property of the parent module or component.</p>
+                                      <code-example code="
+                                      [ UserService,
+                                      { provide: Logger, useClass: EvenBetterLogger }]
+                                      "></code-example>
+
+                                      <p>In this example, EvenBetterLogger displays the user name in the log message. This logger gets the user from an injected UserService instance.</p>
+                                      <code-example code="
+                                      @Injectable()
+                                      export class EvenBetterLogger extends Logger {
+                                        constructor(private userService: UserService) { super(); }
+                                      
+                                        log(message: string) {
+                                          const name = this.userService.user.name;
+                                          super.log(`Message to ${name}: ${message}`);
+                                        }
+                                      }
+                                      "></code-example>
+
+                                      <p>The injector needs providers for both this new logging service and its dependent UserService.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                            </ng-container>
+
+                            <ng-container #content4_2>
+                              <mat-accordion>
+                                  <mat-expansion-panel>
+                                      <mat-expansion-panel-header>
+                                          <mat-panel-title>
+                                            Aliasing class providers
+                                          </mat-panel-title>
+                                      </mat-expansion-panel-header>
+                  
+                                      <ng-container #content4_2_Inner>
+                                        <p>To alias a class provider, specify the alias and the class provider in the providers array with the useExisting property.</p>
+                                        <p>In the following example, the injector injects the singleton instance of NewLogger when the component asks for either the new or the old logger. In this way, OldLogger is an alias for NewLogger.</p>
+                                        <code-example code="
+                                        [ NewLogger,
+                                        // Alias OldLogger w/ reference to NewLogger
+                                        { provide: OldLogger, useExisting: NewLogger}]
+                                        "></code-example>
+
+                                        <p>Be sure you don't alias OldLogger to NewLogger with useClass, as this creates two different NewLogger instances.</p>
+                                      </ng-container>
+                                  </mat-expansion-panel>
+                                </mat-accordion>
+                              </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content5>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Aliasing a class interface
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content5Content>
+                          <ng-container #description_5>
+                            <p>Generally, writing variations of the same parent alias provider uses forwardRef as follows.</p>
+                            <code-example code="
+                            providers: [{ provide: Parent, useExisting: forwardRef(() => AlexComponent) }],
+                            "></code-example>
+
+                            <p>To streamline your code, you can extract that logic into a helper function using the provideParent() helper function.</p>
+                            <code-example code="
+                            // Helper method to provide the current component instance in the name of a `parentType`.
+                            export function provideParent
+                              (component: any) {
+                                return { provide: Parent, useExisting: forwardRef(() => component) };
+                              }
+                            "></code-example>
+
+                            <p>Now you can add a parent provider to your components that's easier to read and understand.</p>
+                            <code-example code="
+                            providers:  [ provideParent(AliceComponent) ]
+                            "></code-example>
+                          </ng-container>
+
+                          <ng-container #content5_1>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                          Aliasing multiple class interfaces
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content5_1_Inner>
+                                      <p>To alias multiple parent types, each with its own class interface token, configure provideParent() to accept more arguments.</p>
+                                      <p>Here's a revised version that defaults to parent but also accepts an optional second parameter for a different parent class interface.</p>
+                                      <code-example code="
+                                      // Helper method to provide the current component instance in the name of a `parentType`.
+                                      // The `parentType` defaults to `Parent` when omitting the second parameter.
+                                      export function provideParent
+                                        (component: any, parentType?: any) {
+                                          return { provide: parentType || Parent, useExisting: forwardRef(() => component) };
+                                        }
+                                      "></code-example>
+
+                                      <p>Next, to use provideParent() with a different parent type, provide a second argument, here DifferentParent.</p>
+                                      <code-example code="
+                                      providers:  [ provideParent(BethComponent, DifferentParent) ]
+                                      "></code-example>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content6>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Injecting an object
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content6Content>
+                          <ng-container #description_6>
+                            <p>To inject an object, configure the injector with the useValue option. The following provider object uses the useValue key to associate the variable with the Logger token.</p>
+                            <code-example code="
+                            [{ provide: Logger, useValue: SilentLogger }]
+                            "></code-example>
+
+                            <p>In this example, SilentLogger is an object that fulfills the logger role.</p>
+                            <code-example code="
+                            // An object in the shape of the logger service
+                            function silentLoggerFn() {}
+                            
+                            export const SilentLogger = {
+                              logs: ['Silent logger says 'Shhhhh!'. Provided via 'useValue''],
+                              log: silentLoggerFn
+                            };
+                            "></code-example>
+                          </ng-container>
+
+                          <ng-container #content6_1>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                          Injecting a configuration object
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content6_1_Inner>
+                                      <p>A common use case for object literals is a configuration object. The following configuration object includes the title of the application and the address of a web API endpoint.</p>
+                                      <code-example code="
+                                      export const HERO_DI_CONFIG: AppConfig = {
+                                        apiEndpoint: 'api.heroes.com',
+                                        title: 'Dependency Injection'
+                                      };
+                                      "></code-example>
+
+                                      <p>To provide and inject the configuration object, specify the object in the @NgModule() providers array.</p>
+                                      <code-example code="
+                                      providers: [
+                                      UserService,
+                                      { provide: APP_CONFIG, useValue: HERO_DI_CONFIG }
+                                      ],
+                                      "></code-example>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                          </ng-container>
+
+                          <ng-container #content6_2>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                          Using an InjectionToken object
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content6_2_Inner>
+                                      <p>You can define and use an InjectionToken object for choosing a provider token for non-class dependencies. The following example defines a token, APP_CONFIG of the type InjectionToken.</p>
+                                      <code-example code="
+                                      import { InjectionToken } from '@angular/core';
+
+                                      export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');
+                                      "></code-example>
+
+                                      <p>The optional type parameter, AppConfig, and the token description, app.config, specify the token's purpose.</p>
+                                      <p>Next, register the dependency provider in the component using the InjectionToken object of APP_CONFIG.</p>
+                                      <code-example code="
+                                      providers: [{ provide: APP_CONFIG, useValue: HERO_DI_CONFIG }]
+                                      "></code-example>
+
+                                      <p>Now you can inject the configuration object into the constructor with @Inject() parameter decorator.</p>
+                                      <code-example code="
+                                      constructor(@Inject(APP_CONFIG) config: AppConfig) {
+                                        this.title = config.title;
+                                      }
+                                      "></code-example>
+
+                                      <br>
+                                      <h3>Interfaces and dependency injection</h3>
+                                      <p>Though the TypeScript AppConfig interface supports typing within the class, the AppConfig interface plays no role in dependency injection. In TypeScript, an interface is a design-time artifact, and doesn't have a runtime representation, or token, that the DI framework can use.</p>
+                                      <p>When the transpiler changes TypeScript to JavaScript, the interface disappears because JavaScript doesn't have interfaces.</p>
+                                      <p>Since there is no interface for Angular to find at runtime, the interface cannot be a token, nor can you inject it.</p>
+                                      <code-example code="
+                                      // Can't use interface as provider token
+                                      [{ provide: AppConfig, useValue: HERO_DI_CONFIG })]
+                                      "></code-example>
+
+                                      <code-example code="
+                                      // Can't inject using the interface as the parameter type
+                                      constructor(private config: AppConfig){ }
+                                      "></code-example>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                              </mat-accordion>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content7>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Using factory providers
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content7Content>
+                          <ng-container #description_7>
+                            <p>To create a changeable, dependent value based on information unavailable before run time, you can use a factory provider.</p>
+                            <p>In the following example, only authorized users should see secret heroes in the HeroService. Authorization can change during the course of a single application session, as when a different user logs in .</p>
+                            <p>To keep security-sensitive information in UserService and out of HeroService, give the HeroService constructor a boolean flag to control display of secret heroes.</p>
+                            <code-example code="
+                            constructor(
+                              private logger: Logger,
+                              private isAuthorized: boolean) { }
+                            
+                            getHeroes() {
+                              const auth = this.isAuthorized ? 'authorized ' : 'unauthorized';
+                              this.logger.log(`Getting heroes for ${auth} user.`);
+                              return HEROES.filter(hero => this.isAuthorized || !hero.isSecret);
+                            }
+                            "></code-example>
+
+                            <p>To implement the isAuthorized flag, use a factory provider to create a new logger instance for HeroService.</p>
+                            <code-example code="
+                            const heroServiceFactory = (logger: Logger, userService: UserService) => {
+                              return new HeroService(logger, userService.user.isAuthorized);
+                            };
+                            "></code-example>
+
+                            <p>The factory function has access to UserService. You inject both Logger and UserService into the factory provider so the injector can pass them along to the factory function.</p>
+                            <code-example code="
+                            export let heroServiceProvider =
+                            { provide: HeroService,
+                              useFactory: heroServiceFactory,
+                              deps: [Logger, UserService]
+                            };
+                            "></code-example>
+
+                            <ul>
+                              <li>The useFactory field specifies that the provider is a factory function whose implementation is heroServiceFactory.</li>
+                              <li>The deps property is an array of provider tokens. The Logger and UserService classes serve as tokens for their own class providers. The injector resolves these tokens and injects the corresponding services into the matching heroServiceFactory factory function parameters.</li>
+                            </ul>
+
+                            <p>Capturing the factory provider in the exported variable, heroServiceProvider, makes the factory provider reusable.</p>
+                            <p>The following side-by-side example shows how heroServiceProvider replaces HeroService in the providers array.</p>
+                            <code-example code="
+                            import { Component } from '@angular/core';
+                            import { heroServiceProvider } from './hero.service.provider';
+
+                            @Component({
+                              selector: 'app-heroes',
+                              providers: [ heroServiceProvider ],
+                              template: `
+                                < h2>Heroes</h2>
+                                < app-hero-list></app-hero-list>
+                              `
+                            })
+                            export class HeroesComponent { }
+                            "></code-example>
+
+                            <code-example code="
+                            import { Component } from '@angular/core';
+
+                            import { HeroService } from './hero.service';
+                            
+                            @Component({
+                              selector: 'app-heroes',
+                              providers: [ HeroService ],
+                              template: `
+                                < h2>Heroes</h2>
+                                < app-hero-list></app-hero-list>
+                              `
+                            })
+                            export class HeroesComponent { }
+                            "></code-example>
+                          </ng-container>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>

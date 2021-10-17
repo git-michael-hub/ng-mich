@@ -1,0 +1,2158 @@
+<ng-container>
+    <section>
+        <h1>Component</h1>
+        <mat-accordion>
+          <ng-container *ngTemplateOutlet="overviewTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="lifecycleHooksTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="viewEncapsulationTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="componentInteractionTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="componentStylesTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="contentProjectionTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="dynamicComponentLoaderTemplate"></ng-container>
+          <ng-container *ngTemplateOutlet="angularElementsTemplate"></ng-container>
+        </mat-accordion>
+    </section>
+</ng-container>
+
+
+<ng-template #overviewTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Overview
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #overviewContent>
+            <ng-container #description>
+                <p>Components are the main building block for Angular applications. Each component consists of:</p>
+                <ul>
+                    <li>An HTML template that declares what renders on the page</li>
+                    <li>A Typescript class that defines behavior</li>
+                    <li>A CSS selector that defines how the component is used in a template</li>
+                    <li>Optionally, CSS styles applied to the template</li>
+                </ul>
+            </ng-container>
+            
+            <ng-container #content1>
+              <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Creating a component
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+    
+                    <ng-container #content1Content>
+                        <ng-container #description_1>
+                            <p>The easiest way to create a component is with the Angular CLI. You can also create a component manually.</p>
+                        </ng-container>
+                        
+                        <ng-container #content1_1>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Creating a component using the Angular CLI
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_1_Inner>
+                                        <p>To create a component using the Angular CLI:</p>
+                                        <ul>
+                                            <li>Run the <code>ng generate component [component-name] command</code></li>
+                                        </ul>
+                                    
+                                        <p>By default, this command creates the following:</p>
+                                        <ul>
+                                            <li>A folder named after the component</li>
+                                            <li>A component file, [component-name].component.ts</li>
+                                            <li>A template file, [component-name].component.html</li>
+                                            <li>A CSS file, [component-name].component.css</li>
+                                            <li>A testing specification file, [component-name].component.spec.ts</li>
+                                        </ul>
+                    
+                                        <p>Where [component-name] is the name of your component.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content1_2>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Creating a component manually
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_2_Inner>
+                                        <p>To create a new component manually:</p>
+                                        <ol>
+                                            <li>Navigate to your Angular project directory.</li>
+                                            <li>Create a new file, [component-name].component.ts.</li>
+                                            <li>
+                                                At the top of the file, add the following import statement.
+                                                <br>
+                                                <code-example code="
+                                                    import { Component } from '@angular/core';
+                                                "></code-example>
+                                            </li>
+                                            <li>
+                                                After the import statement, add a @Component decorator.
+                                                <br>
+                                                <code-example code="
+                                                @Component({
+                                                })
+                                                "></code-example>
+                                            </li>
+                                            <li>
+                                                Choose a CSS selector for the component.
+                                                <br>
+                                                <code-example code="
+                                                @Component({
+                                                    selector: 'app-component-overview',
+                                                })
+                                                "></code-example>
+                                            </li>
+                                            <li>
+                                                Define the HTML template that the component uses to display information. In most cases, this template is a separate HTML file.
+                                                <br>
+                                                <code-example code="
+                                                @Component({
+                                                    selector: 'app-component-overview',
+                                                    templateUrl: './component-overview.component.html',
+                                                })
+                                                "></code-example>
+                                            </li>
+                                            <li>
+                                                Select the styles for the component's template. In most cases, you define the styles for your component's template in a separate file.
+                                                <br>
+                                                <code-example code="
+                                                @Component({
+                                                    selector: 'app-component-overview',
+                                                    templateUrl: './component-overview.component.html',
+                                                    styleUrls: ['./component-overview.component.css']
+                                                })
+                                                "></code-example>
+                                            </li>
+                                            <li>
+                                                Add a class statement that includes the code for the component.
+                                                <br>
+                                                <code-example code="
+                                                export class ComponentOverviewComponent {
+
+                                                }
+                                                "></code-example>
+                                            </li>
+                                        </ol>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+                    </ng-container>
+    
+                </mat-expansion-panel>
+              </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                                Specifying a component's CSS selector
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content2Content>
+                            <p>Every component requires a CSS selector. A selector instructs Angular to instantiate this component wherever it finds the corresponding tag in template HTML. For example, consider a component hello-world.component.ts that defines its selector as app-hello-world. This selector instructs Angular to instantiate this component any time the tag [app-hello-world] appears in a template.</p>
+                            <p>Specify a component's selector by adding a selector statement to the @Component decorator.</p>
+
+                            <code-example code="
+                                @Component({
+                                    selector: 'app-component-overview',
+                                })
+                            "></code-example>
+                      </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                                Defining a component's template
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content3Content>
+                            <p>A template is a block of HTML that tells Angular how to render the component in your application. You can define a template for your component in one of two ways: by referencing an external file, or directly within the component.</p>
+                            <p>To define a template as an external file, add a templateUrl property to the @Component decorator.</p>
+                            <code-example code="
+                                @Component({
+                                    selector: 'app-component-overview',
+                                    templateUrl: './component-overview.component.html',
+                                })
+                            "></code-example>
+
+                            <p>To define a template within the component, add a template property to the @Component decorator that contains the HTML you want to use.</p>
+                            <code-example code="
+                                @Component({
+                                    selector: 'app-component-overview',
+                                    template: '<h1>Hello World!</h1>',
+                                })
+                            "></code-example>
+
+                            <p>If you want your template to span multiple lines, you can use backticks ( ` ). For example:</p>
+                            <code-example code="
+                                @Component({
+                                    selector: 'app-component-overview',
+                                    template: `<h1>Hello World!</h1>
+                                            <p>This template definition spans
+                                                multiple lines.</p>`
+                                })
+                            "></code-example>
+                        </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                  <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                                Declaring a component's styles
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+      
+                      <ng-container #content4Content>
+                            <p>You can declare component styles uses for its template in one of two ways: by referencing an external file, or directly within the component.</p>
+                            <p>To declare the styles for a component in a separate file, add a styleUrls property to the @Component decorator.</p>
+                            <code-example code="
+                                @Component({
+                                    selector: 'app-component-overview',
+                                    templateUrl: './component-overview.component.html',
+                                    styleUrls: ['./component-overview.component.css']
+                                })
+                            "></code-example>
+
+                            <p>To declare the styles within the component, add a styles property to the @Component decorator that contains the styles you want to use.</p>
+                            <code-example code="
+                                @Component({
+                                    selector: 'app-component-overview',
+                                    template: '<h1>Hello World!</h1>',
+                                    styles: ['h1 { font-weight: normal; }']
+                                })
+                            "></code-example>
+
+                            <p>The styles property takes an array of strings that contain the CSS rule declarations.</p>
+                      </ng-container>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+      </mat-expansion-panel>
+</ng-template>
+
+<ng-template #lifecycleHooksTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Lifecycle hooks
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #lifecycleHooksContent>
+            <ng-container #description>
+               <p>Your application can use lifecycle hook methods to tap into key events in the lifecycle of a component or directive in order to initialize new instances, initiate change detection when needed, respond to updates during change detection, and clean up before deletion of instances.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Lifecycle event sequence
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>After your application instantiates a component or directive by calling its constructor, Angular calls the hook methods you have implemented at the appropriate point in the lifecycle of that instance.</p>
+                            <p>Angular executes 8 hook methods in the following sequence.</p>
+                        </ng-container>
+
+                        <ng-container #content1_Inner>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <code>ngOnChanges()</code>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_Inner_1>
+                                        <p>Purpose:</p>
+                                        <p class="tab">Respond when Angular sets or resets data-bound input properties. The method receives a SimpleChanges object of current and previous property values.</p>
+                                        <p class="tab">Note: This happens very frequently, so any operation you perform here impacts performance significantly.</p>
+
+                                        <p>Timing:</p>
+                                        <p class="tab">Called before ngOnInit() (if the component has bound inputs) and whenever one or more data-bound input properties change.</p>
+                                        <p class="tab">Note: If your component has no inputs or you use it without providing any inputs, the framework will not call ngOnChanges().</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <code>ngOnInit()</code>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_Inner_2>
+                                        <p>Purpose:</p>
+                                        <p class="tab">Initialize the directive or component after Angular first displays the data-bound properties and sets the directive or component's input properties.</p>
+
+                                        <p>Timing:</p>
+                                        <p class="tab">Called once, after the first ngOnChanges(). ngOnInit() is still called even when ngOnChanges() is not (which is the case when there are no template-bound inputs).</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <code>ngDoCheck()</code>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_Inner_3>
+                                        <p>Purpose:</p>
+                                        <p class="tab">Detect and act upon changes that Angular can't or won't detect on its own.</p>
+
+                                        <p>Timing:</p>
+                                        <p class="tab">Called immediately after ngOnChanges() on every change detection run, and immediately after ngOnInit() on the first run.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <code>ngAfterContentInit()</code>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_Inner_4>
+                                        <p>Purpose:</p>
+                                        <p class="tab">Respond after Angular projects external content into the component's view, or into the view that a directive is in.</p>
+
+                                        <p>Timing:</p>
+                                        <p class="tab">Called once after the first ngDoCheck().</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <code>ngAfterContentChecked()</code>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_Inner_5>
+                                        <p>Purpose:</p>
+                                        <p class="tab">Respond after Angular checks the content projected into the directive or component.</p>
+
+                                        <p>Timing:</p>
+                                        <p class="tab">Called after ngAfterContentInit() and every subsequent ngDoCheck().</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <code>ngAfterViewInit()</code>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_Inner_6>
+                                        <p>Purpose:</p>
+                                        <p class="tab">Respond after Angular initializes the component's views and child views, or the view that contains the directive.</p>
+
+                                        <p>Timing:</p>
+                                        <p class="tab">Called once after the first ngAfterContentChecked().</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <code>ngAfterViewChecked()</code>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_Inner_7>
+                                        <p>Purpose:</p>
+                                        <p class="tab">Respond after Angular checks the component's views and child views, or the view that contains the directive.</p>
+
+                                        <p>Timing:</p>
+                                        <p class="tab">Called after the ngAfterViewInit() and every subsequent ngAfterContentChecked().</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            <code>ngOnDestroy()</code>
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #content1_Inner_8>
+                                        <p>Purpose:</p>
+                                        <p class="tab">Cleanup just before Angular destroys the directive or component. Unsubscribe Observables and detach event handlers to avoid memory leaks.</p>
+
+                                        <p>Timing:</p>
+                                        <p class="tab">Called immediately before Angular destroys the directive or component.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Initializing a component or directive
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description2>
+                          <p>Use the ngOnInit() method to perform the following initialization tasks.</p>
+                          <ul>
+                              <li>Perform complex initializations outside of the constructor. Components should be cheap and safe to construct. You should not, for example, fetch data in a component constructor. You shouldn't worry that a new component will try to contact a remote server when created under test or before you decide to display it. Fetch it on ngOnInit() for initial data.</li>
+                              <li>Set up the component after Angular sets the input properties. Constructors should do no more than set the initial local variables to simple values. Keep in mind that a directive's data-bound input properties are not set until after construction. If you need to initialize the directive based on those properties, set them when ngOnInit() runs.</li>
+                          </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Cleaning up on instance destruction
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description3>
+                            <p>Put cleanup logic in ngOnDestroy(), the logic that must run before Angular destroys the directive.</p>
+                            <p>This is the place to free resources that won't be garbage-collected automatically. You risk memory leaks if you neglect to do so.</p>
+                            <ul>
+                                <li>Unsubscribe from Observables and DOM events.</li>
+                                <li>Stop interval timers.</li>
+                                <li>Unregister all callbacks that the directive registered with global or application services.</li>
+                            </ul>
+
+                            <p>The ngOnDestroy() method is also the time to notify another part of the application that the component is going away.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Using change detection hooks
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description4>
+                            <p>Angular calls the ngOnChanges() method of a component or directive whenever it detects changes to the input properties. The onChanges example demonstrates this by monitoring the OnChanges() hook.</p>
+                            <code-example code="
+                                ngOnChanges(changes: SimpleChanges) {
+                                    for (const propName in changes) {
+                                    const chng = changes[propName];
+                                    const cur  = JSON.stringify(chng.currentValue);
+                                    const prev = JSON.stringify(chng.previousValue);
+                                    this.changeLog.push(`${propName}: currentValue = ${cur}, previousValue = ${prev}`);
+                                    }
+                                }
+                            "></code-example>
+
+                            <p>The ngOnChanges() method takes an object that maps each changed property name to a SimpleChange object holding the current and previous property values. This hook iterates over the changed properties and logs them.</p>
+                            
+                            <p>The example component, OnChangesComponent, has two input properties: hero and power.</p>
+                            <code-example code="
+                                @Input() hero!: Hero;
+                                @Input() power = '';
+                            "></code-example>
+                            
+                            <p>The host OnChangesParentComponent binds to them as follows.</p>
+                            <code-example code="
+                                <on-changes [hero]='hero' [power]='power'></on-changes>
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #viewEncapsulationTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            View encapsulation
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #lviewEncapsulationContent>
+            <ng-container #description>
+               <p>In Angular, component CSS styles are encapsulated into the component's view and don't affect the rest of the application.</p>
+               <p>To control how this encapsulation happens on a per component basis, you can set the view encapsulation mode in the component metadata. Choose from the following modes:</p>
+               <ul>
+                   <li><code>ShadowDom</code> view encapsulation uses the browser's native shadow DOM implementation to attach a shadow DOM to the component's host element, and then puts the component view inside that shadow DOM. The component's styles are included within the shadow DOM.</li>
+                   <li><code>Emulated</code> view encapsulation (the default) emulates the behavior of shadow DOM by preprocessing (and renaming) the CSS code to effectively scope the CSS to the component's view.</li>
+                   <li><code>None</code> means that Angular does no view encapsulation. Angular adds the CSS to the global styles. The scoping rules, isolations, and protections discussed earlier don't apply. This mode is essentially the same as pasting the component's styles into the HTML.</li>
+               </ul>
+
+               <p>To set the component's encapsulation mode, use the encapsulation property in the component metadata:</p>
+               <code-example code="
+                    // warning: not all browsers support shadow DOM encapsulation at this time
+                    encapsulation: ViewEncapsulation.ShadowDom
+                "></code-example>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Inspecting generated CSS
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>When using emulated view encapsulation, Angular preprocesses all component styles so that they approximate the standard shadow CSS scoping rules.</p>
+                            <p>In the DOM of a running Angular application with emulated view encapsulation enabled, each DOM element has some extra attributes attached to it:</p>
+                            <code-example code="
+                              < hero-details _nghost-pmm-5>
+                                < h2 _ngcontent-pmm-5>Mister Fantastic</h2>
+                                < hero-team _ngcontent-pmm-5 _nghost-pmm-6>
+                                  < h3 _ngcontent-pmm-6>Team</h3>
+                                < /hero-team>
+                              < /hero-detail>
+                            "></code-example>
+
+                            <p>There are two kinds of generated attributes:</p>
+                            <ul>
+                                <li>An element that would be a shadow DOM host in native encapsulation has a generated <code>_nghost</code> attribute. This is typically the case for component host elements.</li>
+                                <li>An element within a component's view has a <code>_ngcontent</code> attribute that identifies to which host's emulated shadow DOM this element belongs.</li>
+                            </ul>
+
+                            <p>The exact values of these attributes aren't important. They are automatically generated and you should never refer to them in application code. But they are targeted by the generated component styles, which are in the <code>< head ></code> section of the DOM:</p>
+                            <code-example code="
+                                [_nghost-pmm-5] {
+                                    display: block;
+                                    border: 1px solid black;
+                                }
+                                
+                                h3[_ngcontent-pmm-6] {
+                                    background-color: white;
+                                    border: 1px solid #777;
+                                }
+                          "></code-example>
+
+                          <p>These styles are post-processed so that each selector is augmented with <code>_nghost</code> or <code>_ngcontent</code> attribute selectors. These extra selectors enable the scoping rules described in this page.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Mixing encapsulation modes
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description2>
+                            <p>Avoid mixing components that use different view encapsulation. Where it is necessary, you should be aware of how the component styles will interact.</p>
+                            <ul>
+                                <li>The styles of components with ViewEncapsulation.Emulated are added to the < head > of the document, making them available throughout the application, but are "scoped" so they only affect elements within the component's template.</li>
+                                <li>The styles of components with ViewEncapsulation.None are added to the < head > of the document, making them available throughout the application, and are not "scoped" so they can affect any element in the application.</li>
+                                <li>The styles of components with ViewEncapsulation.ShadowDom are only added to the shadow DOM host, ensuring that they only affect elements within the component's template.</li>
+                            </ul>
+
+                            <p>All the styles for ViewEncapsulation.Emulated and ViewEncapsulation.None components are also added to the shadow DOM host of each ViewEncapsulation.ShadowDom component.</p>
+                            <p>The result is that styling for components with ViewEncapsulation.None will affect matching elements within the shadow DOM.</p>
+                            <p>This approach may seem counter-intuitive at first, but without it a component with ViewEncapsulation.None could not be used within a component with ViewEncapsulation.ShadowDom, since its styles would not be available.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #componentInteractionTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Component interaction
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #componentInteractionContent>
+            <ng-container #description>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Input Binding: parent - child
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>HeroChildComponent has two input properties, typically adorned with @Input() decorator.</p>
+
+                            <code-example code="
+                                import { Component, Input } from '@angular/core';
+
+                                import { Hero } from './hero';
+                                
+                                @Component({
+                                selector: 'app-hero-child',
+                                template: `
+                                    < h3>{ hero.name } says:< /h3>
+                                    < p>I, { hero.name }, am at your service, { masterName }.< /p>
+                                `
+                                })
+                                export class HeroChildComponent {
+                                    @Input() hero!: Hero;
+                                    @Input('master') masterName = ''; // tslint:disable-line: no-input-rename
+                                }
+                            "></code-example>
+
+                            <p>The second @Input aliases the child component property name masterName as 'master'.</p>
+
+                            <p>The HeroParentComponent nests the child HeroChildComponent inside an *ngFor repeater, binding its master string property to the child's master alias, and each iteration's hero instance to the child's hero property.</p>
+
+                            <code-example code="
+                                import { Component } from '@angular/core';
+
+                                import { HEROES } from './hero';
+                                
+                                @Component({
+                                selector: 'app-hero-parent',
+                                template: `
+                                    < h2>{ master } controls { heroes.length} heroes< /h2>
+                                    < app-hero-child *ngFor='let hero of heroes'
+                                    [hero]='hero'
+                                    [master]='master'>
+                                    < /app-hero-child>
+                                `
+                                })
+                                export class HeroParentComponent {
+                                    heroes = HEROES;
+                                    master = 'Master';
+                                }
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>            
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Input property with a setter
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description2>
+                            <p>Use an input property setter to intercept and act upon a value from the parent.</p>
+
+                            <p>The setter of the name input property in the child NameChildComponent trims the whitespace from a name and replaces an empty value with default text.</p>
+
+                            <code-example code="
+                                import { Component, Input } from '@angular/core';
+
+                                @Component({
+                                    selector: 'app-name-child',
+                                    template: '< h3>{name}</h3>'
+                                })
+                                export class NameChildComponent {
+                                    @Input()
+                                    get name(): string { return this._name; }
+                                    set name(name: string) {
+                                        this._name = (name && name.trim()) || '< no name set>';
+                                    }
+                                    private _name = '';
+                                }
+                            "></code-example>
+
+                            <p>Here's the NameParentComponent demonstrating name variations including a name with all spaces:</p>
+                            <code-example code="
+                                import { Component } from '@angular/core';
+
+                                @Component({
+                                selector: 'app-name-parent',
+                                template: `
+                                    < h2>Master controls {names.length} names</h2>
+                                    <a  pp-name-child *ngFor='let name of names' [name]='name'></app-name-child>
+                                `
+                                })
+                                export class NameParentComponent {
+                                    // Displays 'Dr IQ', '< no name set>', 'Bombasto'
+                                    names = ['Dr IQ', '   ', '  Bombasto  '];
+                                }
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+            
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Input property with ngOnChanges()
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description3>
+                            <p>Detect and act upon changes to input property values with the ngOnChanges() method of the OnChanges lifecycle hook interface.</p>
+
+                            <div class="note">
+                                <p>You may prefer this approach to the property setter when watching multiple, interacting input properties.</p>
+                            </div>
+
+                            <p>This VersionChildComponent detects changes to the major and minor input properties and composes a log message reporting these changes:</p>
+                            <code-example code="
+                                import { Component } from '@angular/core';
+
+                                @Component({
+                                selector: 'app-version-parent',
+                                template: `
+                                    < h2>Source code version</h2>
+                                    < button (click)='newMinor()'>New minor version</button>
+                                    < button (click)='newMajor()'>New major version</button>
+                                    < app-version-child [major]='major' [minor]='minor'></app-version-child>
+                                `
+                                })
+                                export class VersionParentComponent {
+                                    major = 1;
+                                    minor = 23;
+
+                                    newMinor() {
+                                        this.minor++;
+                                    }
+
+                                    newMajor() {
+                                        this.major++;
+                                        this.minor = 0;
+                                    }
+                                }
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+            
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Output property: Parent listens for child event
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description4>
+                            <p>The child component exposes an EventEmitter property with which it emits events when something happens. The parent binds to that event property and reacts to those events.</p>
+                            <p>The child's EventEmitter property is an output property, typically adorned with an @Output() decorator as seen in this VoterComponent:</p>
+                            <code-example code="
+                                import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+                                @Component({
+                                    selector: 'app-voter',
+                                    template: `
+                                        < 4>{name}</h4>
+                                        < button (click)='vote(true)'  [disabled]='didVote'>Agree</button>
+                                        < button (click)='vote(false)' [disabled]='didVote'>Disagree</button>
+                                    `
+                                })
+                                export class VoterComponent {
+                                    @Input()  name = '';
+                                    @Output() voted = new EventEmitter< boolean>();
+                                    didVote = false;
+                                    
+                                    vote(agreed: boolean) {
+                                        this.voted.emit(agreed);
+                                        this.didVote = true;
+                                    }
+                                }
+                            "></code-example>
+
+                            <p>Clicking a button triggers emission of a true or false, the boolean payload.</p>
+
+                            <p>The parent VoteTakerComponent binds an event handler called onVoted() that responds to the child event payload $event and updates a counter.</p>
+                            <code-example code="
+                                import { Component } from '@angular/core';
+
+                                @Component({
+                                    selector: 'app-vote-taker',
+                                    template: `
+                                        < h2>Should mankind colonize the Universe?</h2>
+                                        < h3>Agree: {agreed}, Disagree: {disagreed}</h3>
+                                        < app-voter *ngFor='let voter of voters'
+                                        [name]='voter'
+                                        (voted)='onVoted($event)'>
+                                        < /app-voter>
+                                    `
+                                })
+                                export class VoteTakerComponent {
+                                    agreed = 0;
+                                    disagreed = 0;
+                                    voters = ['Narco', 'Celeritas', 'Bombasto'];
+                                    
+                                    onVoted(agreed: boolean) {
+                                        agreed ? this.agreed++ : this.disagreed++;
+                                    }
+                                }                            
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+            
+            <ng-container #content5>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Local Variable: Parents interacts with child
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description5>
+                            <p>A parent component cannot use data binding to read child properties or invoke child methods. You can do both by creating a template reference variable for the child element and then reference that variable within the parent template as seen in the following example.</p>
+
+                            <p>The following is a child CountdownTimerComponent that repeatedly counts down to zero and launches a rocket. It has start and stop methods that control the clock and it displays a countdown status message in its own template.</p>
+
+                            <code-example code="
+                                import { Component, OnDestroy } from '@angular/core';
+
+                                @Component({
+                                    selector: 'app-countdown-timer',
+                                    template: '< p>{message}</p>'
+                                })
+                                export class CountdownTimerComponent implements OnDestroy {
+
+                                    intervalId = 0;
+                                    message = '';
+                                    seconds = 11;
+
+                                    ngOnDestroy() { this.clearTimer(); }
+
+                                    start() { this.countDown(); }
+                                    stop()  {
+                                        this.clearTimer();
+                                        this.message = `Holding at T-${this.seconds} seconds`;
+                                    }
+
+                                    private clearTimer() { clearInterval(this.intervalId); }
+
+                                    private countDown() {
+                                        this.clearTimer();
+                                        this.intervalId = window.setInterval(() => {
+                                        this.seconds -= 1;
+                                        if (this.seconds === 0) {
+                                            this.message = 'Blast off!';
+                                        } else {
+                                            if (this.seconds < 0) { this.seconds = 10; } // reset
+                                            this.message = `T-${this.seconds} seconds and counting`;
+                                        }
+                                        }, 1000);
+                                    }
+                                }
+                            "></code-example>
+
+                            <p>The CountdownLocalVarParentComponent that hosts the timer component is as follows:</p>
+                            <code-example code="
+                                import { Component } from '@angular/core';
+                                import { CountdownTimerComponent } from './countdown-timer.component';
+
+                                @Component({
+                                    selector: 'app-countdown-parent-lv',
+                                    template: `
+                                        < h3>Countdown to Liftoff (via local variable)</h3>
+                                        <b utton (click)='timer.start()'>Start</button>
+                                        < button (click)='timer.stop()'>Stop</button>
+                                        < div class='seconds'>{timer.seconds}</div>
+                                        < app-countdown-timer #timer></app-countdown-timer>
+                                    `,
+                                    styleUrls: ['../assets/demo.css']
+                                })
+                                export class CountdownLocalVarParentComponent { }
+                            "></code-example>
+
+                            <p>The parent component cannot data bind to the child's start and stop methods nor to its seconds property.</p>
+
+                            <p>You can place a local variable, #timer, on the tag < app-countdown-timer> representing the child component. That gives you a reference to the child component and the ability to access any of its properties or methods from within the parent template.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+            
+            <ng-container #content6>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Parent calls an @ViewChild()
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description6>
+                            <p>The local variable approach is easy. But it is limited because the parent-child wiring must be done entirely within the parent template. The parent component itself has no access to the child.</p>
+
+                            <p>You can't use the local variable technique if the parent component's class relies on the child component's class. The parent-child relationship of the components is not established within each components respective class with the local variable technique. Since the class instances are not connected to one another, the parent class cannot access the child class properties and methods.</p>
+
+                            <p>When the parent component class requires that kind of access, inject the child component into the parent as a ViewChild.</p>
+
+                            <p>The following example illustrates this technique with the same Countdown Timer example. Neither its appearance nor its behavior will change. The child CountdownTimerComponent is the same as well.</p>
+
+                            <div class="note">
+                                <p>The switch from the local variable to the ViewChild technique is solely for the purpose of demonstration.</p>
+                            </div>
+
+                            <p>Here is the parent, CountdownViewChildParentComponent:</p>
+                            <code-example code="
+                                import { AfterViewInit, ViewChild } from '@angular/core';
+                                import { Component } from '@angular/core';
+                                import { CountdownTimerComponent } from './countdown-timer.component';
+
+                                @Component({
+                                    selector: 'app-countdown-parent-vc',
+                                    template: `
+                                    < h3>Countdown to Liftoff (via ViewChild)</h3>
+                                    < button (click)='start()'>Start</button>
+                                    < button (click)='stop()'>Stop</button>
+                                    < div class='seconds'>{ seconds() }</div>
+                                    < app-countdown-timer></app-countdown-timer>
+                                    `,
+                                    styleUrls: ['../assets/demo.css']
+                                })
+                                export class CountdownViewChildParentComponent implements AfterViewInit {
+
+                                @ViewChild(CountdownTimerComponent)
+                                    private timerComponent!: CountdownTimerComponent;
+
+                                    seconds() { return 0; }
+
+                                    ngAfterViewInit() {
+                                        // Redefine `seconds()` to get from the `CountdownTimerComponent.seconds` ...
+                                        // but wait a tick first to avoid one-time devMode
+                                        // unidirectional-data-flow-violation error
+                                        setTimeout(() => this.seconds = () => this.timerComponent.seconds, 0);
+                                    }
+
+                                    start() { this.timerComponent.start(); }
+                                    stop() { this.timerComponent.stop(); }
+                                }
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+            
+            <ng-container #content7>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Service: Parent and Children communication
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description7>
+                            <p>A parent component and its children share a service whose interface enables bi-directional communication within the family.</p>
+
+                            <p>The scope of the service instance is the parent component and its children. Components outside this component subtree have no access to the service or their communications.</p>
+
+                            <p>This MissionService connects the MissionControlComponent to multiple AstronautComponent children.</p>
+                            <code-example code="
+                                import { Injectable } from '@angular/core';
+                                import { Subject } from 'rxjs';
+                                
+                                @Injectable()
+                                    export class MissionService {
+                                    
+                                    // Observable string sources
+                                    private missionAnnouncedSource = new Subject<string>();
+                                    private missionConfirmedSource = new Subject<string>();
+                                    
+                                    // Observable string streams
+                                    missionAnnounced$ = this.missionAnnouncedSource.asObservable();
+                                    missionConfirmed$ = this.missionConfirmedSource.asObservable();
+                                    
+                                    // Service message commands
+                                    announceMission(mission: string) {
+                                        this.missionAnnouncedSource.next(mission);
+                                    }
+                                    
+                                    confirmMission(astronaut: string) {
+                                        this.missionConfirmedSource.next(astronaut);
+                                    }
+                                }
+                            "></code-example>
+
+                            <p>The MissionControlComponent both provides the instance of the service that it shares with its children (through the providers metadata array) and injects that instance into itself through its constructor:</p>
+                            <code-example code="
+                                import { Component } from '@angular/core';
+
+                                import { MissionService } from './mission.service';
+                                
+                                @Component({
+                                selector: 'app-mission-control',
+                                template: `
+                                    < h2>Mission Control</h2>
+                                    < button (click)='announce()'>Announce mission</button>
+                                    < app-astronaut *ngFor='let astronaut of astronauts'
+                                    [astronaut]='astronaut'>
+                                    </app-astronaut>
+                                    < h3>History</h3>
+                                    < ul>
+                                        < li *ngFor='let event of history'>{event}</li>
+                                    </ul>
+                                `,
+                                providers: [MissionService]
+                                })
+                                export class MissionControlComponent {
+                                    astronauts = ['Lovell', 'Swigert', 'Haise'];
+                                    history: string[] = [];
+                                    missions = ['Fly to the moon!',
+                                                'Fly to mars!',
+                                                'Fly to Vegas!'];
+                                    nextMission = 0;
+                                    
+                                    constructor(private missionService: MissionService) {
+                                        missionService.missionConfirmed$.subscribe(
+                                        astronaut => {
+                                            this.history.push(`${astronaut} confirmed the mission`);
+                                        });
+                                    }
+                                    
+                                    announce() {
+                                        const mission = this.missions[this.nextMission++];
+                                        this.missionService.announceMission(mission);
+                                        this.history.push(`Mission '${mission}' announced`);
+                                        if (this.nextMission >= this.missions.length) { this.nextMission = 0; }
+                                    }
+                                }
+                            "></code-example>
+
+                            <p>The AstronautComponent also injects the service in its constructor. Each AstronautComponent is a child of the MissionControlComponent and therefore receives its parent's service instance:</p>
+
+                            <code-example code="
+                                import { Component, Input, OnDestroy } from '@angular/core';
+
+                                import { MissionService } from './mission.service';
+                                import { Subscription } from 'rxjs';
+
+                                @Component({
+                                    selector: 'app-astronaut',
+                                    template: `
+                                        < p>
+                                        {astronaut}: <strong>{mission}</strong>
+                                        < button
+                                            (click)='confirm()'
+                                            [disabled]='!announced || confirmed'>
+                                            Confirm
+                                        </button>
+                                        </p>
+                                    `
+                                })
+                                export class AstronautComponent implements OnDestroy {
+                                    @Input() astronaut = '';
+                                    mission = '<no mission announced>';
+                                    confirmed = false;
+                                    announced = false;
+                                    subscription: Subscription;
+
+                                    constructor(private missionService: MissionService) {
+                                        this.subscription = missionService.missionAnnounced$.subscribe(
+                                        mission => {
+                                            this.mission = mission;
+                                            this.announced = true;
+                                            this.confirmed = false;
+                                        });
+                                    }
+
+                                    confirm() {
+                                        this.confirmed = true;
+                                        this.missionService.confirmMission(this.astronaut);
+                                    }
+
+                                    ngOnDestroy() {
+                                        // prevent memory leak when component destroyed
+                                        this.subscription.unsubscribe();
+                                    }
+                                }
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>         
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #componentStylesTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Component styles
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #componentStylesContent>
+            <ng-container #description>
+                <p>Angular applications are styled with standard CSS. That means you can apply everything you know about CSS stylesheets, selectors, rules, and media queries directly to Angular applications.</p>
+                <p>Additionally, Angular can bundle component styles with components, enabling a more modular design than regular stylesheets.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Using component styles
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>For every Angular component you write, you may define not only an HTML template, but also the CSS styles that go with that template, specifying any selectors, rules, and media queries that you need.</p>
+                            <p>One way to do this is to set the styles property in the component metadata. The styles property takes an array of strings that contain CSS code. Usually you give it one string, as in the following example:</p>
+
+                            <code-example code="
+                                @Component({
+                                    selector: 'app-root',
+                                    template: `
+                                    < h1>Tour of Heroes</h1>
+                                    < app-hero-main [hero]='hero'></app-hero-main>
+                                    `,
+                                    styles: ['h1 { font-weight: normal; }']
+                                })
+                                export class HeroAppComponent {
+                                    /* . . . */
+                                }
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Style scope
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description2>
+                            <p class="note">The styles specified in @Component metadata apply only within the template of that component.</p>
+                            <p>This scoping restriction is a styling modularity feature.</p>
+                            <ul>
+                                <li>You can use the CSS class names and selectors that make the most sense in the context of each component.</li>
+                                <li>Class names and selectors are local to the component and don't collide with classes and selectors used elsewhere in the application.</li>
+                                <li>Changes to styles elsewhere in the application don't affect the component's styles.</li>
+                                <li>You can co-locate the CSS code of each component with the TypeScript and HTML code of the component, which leads to a neat and tidy project structure.</li>
+                                <li>You can change or remove component CSS code without searching through the whole application to find where else the code is used.</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Special selectors
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description3>
+                        </ng-container>
+
+                        <ng-container #content3_1>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            :host
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description3_1>
+                                        <p>Use the :host pseudo-class selector to target styles in the element that hosts the component (as opposed to targeting elements inside the component's template).</p>
+                                        <code-example code="
+                                            :host {
+                                                display: block;
+                                                border: 1px solid black;
+                                            }
+                                        "></code-example>
+
+                                        <p>The :host selector is the only way to target the host element. You can't reach the host element from inside the component with other selectors because it's not part of the component's own template. The host element is in a parent component's template.</p>
+                                        <p>Use the function form to apply host styles conditionally by including another selector inside parentheses after :host.</p>
+                                        <p>The next example targets the host element again, but only when it also has the active CSS class.</p>
+                                        <code-example code="
+                                            :host(.active) {
+                                                border-width: 3px;
+                                            }
+                                        "></code-example>
+
+                                        <p>he :host selector can also be combined with other selectors. Add selectors behind the :host to select child elements, for example using :host h2 to target all < h2> elements inside a component's view.</p>
+
+                                        <p class="note">You should not add selectors (other than :host-context) in front of the :host selector to style a component based on the outer context of the component's view. Such selectors are not scoped to a component's view and will select the outer context, but it's not native behavior. Use :host-context selector for that purpose instead.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content3_2>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            :host-context
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description3_2>
+                                        <p>Sometimes it's useful to apply styles based on some condition outside of a component's view. For example, a CSS theme class could be applied to the document < body> element, and you want to change how your component looks based on that.</p>
+
+                                        <p>Use the :host-context() pseudo-class selector, which works just like the function form of :host(). The :host-context() selector looks for a CSS class in any ancestor of the component host element, up to the document root. The :host-context() selector is useful when combined with another selector.</p>
+                                        <p>The following example applies a background-color style to all < h2> elements inside the component, only if some ancestor element has the CSS class theme-light.</p>
+                                        <code-example code="
+                                            :host-context(.theme-light) h2 {
+                                                background-color: #eef;
+                                            }
+                                        "></code-example>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content3_3>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            (deprecated) /deep/, >>>, and ::ng-deep
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description3_3>
+                                        <p>Component styles normally apply only to the HTML in the component's own template.</p>
+                                        <p>Applying the ::ng-deep pseudo-class to any CSS rule completely disables view-encapsulation for that rule. Any style with ::ng-deep applied becomes a global style.</p>
+                                        <p>In order to scope the specified style to the current component and all its descendants, be sure to include the :host selector before ::ng-deep. If the ::ng-deep combinator is used without the :host pseudo-class selector, the style can bleed into other components.</p>
+
+                                        <p>The following example targets all < h3> elements, from the host element down through this component to all of its child elements in the DOM.</p>
+                                        <code-example code="
+                                            :host ::ng-deep h3 {
+                                                font-style: italic;
+                                            }
+                                        "></code-example>
+
+                                        <p>The /deep/ combinator also has the aliases >>>, and ::ng-deep.</p>
+                                        <p class="note">Use /deep/, >>> and ::ng-deep only with emulated view encapsulation. Emulated is the default and most commonly used view encapsulation. For more information, see the View Encapsulation section.</p>
+                                        <p class="note">The shadow-piercing descendant combinator is deprecated and support is being removed from major browsers and tools. As such we plan to drop support in Angular (for all 3 of /deep/, >>> and ::ng-deep). Until then ::ng-deep should be preferred for a broader compatibility with the tools.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Loading component styles
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description4>
+                            <p>There are several ways to add styles to a component:</p>
+                            <ul>
+                                <li>By setting styles or styleUrls metadata.</li>
+                                <li>Inline in the template HTML.</li>
+                                <li>With CSS imports.</li>
+                            </ul>
+
+                            <p>The scoping rules outlined earlier apply to each of these loading patterns.</p>
+                        </ng-container>
+
+                        <ng-container #content4_1>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Styles in component metadata
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description4_1>
+                                        <p>You can add a styles array property to the @Component decorator.</p>
+                                        <p>Each string in the array defines some CSS for this component.</p>
+                                        <code-example code="
+                                            @Component({
+                                                selector: 'app-root',
+                                                template: `
+                                                < h1>Tour of Heroes</h1>
+                                                < app-hero-main [hero]='hero'></app-hero-main>
+                                                `,
+                                                styles: ['h1 { font-weight: normal; }']
+                                            })
+                                            export class HeroAppComponent {
+                                                /* . . . */
+                                            }
+                                        "></code-example>
+
+                                        <p class="note">Reminder: these styles apply only to this component. They are not inherited by any components nested within the template nor by any content projected into the component.</p>
+                                        
+                                        <p>The Angular CLI command ng generate component defines an empty styles array when you create the component with the --inline-style flag.</p>
+                                        <code-example code="
+                                            ng generate component hero-app --inline-style
+                                        "></code-example>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content4_2>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Style files in component metadata
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description4_2>
+                                        <p>You can load styles from external CSS files by adding a styleUrls property to a component's @Component decorator:</p>
+
+                                        <code-example code="
+                                            @Component({
+                                                selector: 'app-root',
+                                                template: `
+                                                < h1>Tour of Heroes</h1>
+                                                < app-hero-main [hero]='hero'></app-hero-main>
+                                                `,
+                                                styleUrls: ['./hero-app.component.css']
+                                            })
+                                            export class HeroAppComponent {
+                                                /* . . . */
+                                            }
+                                        "></code-example>
+
+                                        <code-example code="
+                                            h1 {
+                                                font-weight: normal;
+                                            }
+                                        "></code-example>
+
+                                        <p class="note">Reminder: the styles in the style file apply only to this component. They are not inherited by any components nested within the template nor by any content projected into the component.</p>
+                                        <p class="note">You can specify more than one styles file or even a combination of styles and styleUrls.</p>
+
+                                        <p>When you use the Angular CLI command ng generate component without the --inline-style flag, it creates an empty styles file for you and references that file in the component's generated styleUrls.</p>
+                                        <code-example code="
+                                            ng generate component hero-app
+                                        "></code-example>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content4_3>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Template inline styles
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description4_3>
+                                        <p>You can embed CSS styles directly into the HTML template by putting them inside [ style ] tags.</p>
+                                        <code-example code="
+                                            @Component({
+                                                selector: 'app-hero-controls',
+                                                template: `
+                                                < style>
+                                                    button {
+                                                    background-color: white;
+                                                    border: 1px solid #777;
+                                                    }
+                                                </style>
+                                                < h3>Controls</h3>
+                                                < button (click)='activate()'>Activate</button>
+                                                `
+                                            })
+                                        "></code-example>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content4_4>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Template link tags
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description4_4>
+                                        <p>You can also write < link> tags into the component's HTML template.</p>
+                                        <code-example code="
+                                            @Component({
+                                                selector: 'app-hero-team',
+                                                template: `
+                                                < !-- We must use a relative URL so that the AOT compiler can find the stylesheet -->
+                                                < link rel='stylesheet' href='../assets/hero-team.component.css'>
+                                                < h3>Team</h3>
+                                                < ul>
+                                                    < li *ngFor='let member of hero.team'>
+                                                    {member}
+                                                    </li>
+                                                </ul>`
+                                            })
+                                        "></code-example>
+
+                                        <p class="note">When building with the CLI, be sure to include the linked style file among the assets to be copied to the server as described in the Assets configuration guide. Once included, the CLI will include the stylesheet, whether the link tag's href URL is relative to the application root or the component file.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content4_5>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            CSS @imports
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description4_5>
+                                        <p>You can also import CSS files into the CSS files using the standard CSS @import rule.</p>
+
+                                        <code-example code="
+                                            /* The AOT compiler needs the `./` to show that this is local */
+                                            @import './hero-details-box.css';
+                                        "></code-example>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content4_6>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            External and global style files
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description4_6>
+                                        <p>When building with the CLI, you must configure the angular.json to include all external assets, including external style files.</p>
+                                        <p>Register global style files in the styles section which, by default, is pre-configured with the global styles.css file.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+
+                        <ng-container #content4_7>
+                            <mat-accordion>
+                                <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Non-CSS style files
+                                        </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                
+                                    <ng-container #description4_7>
+                                        <p>If you're building with the CLI, you can write style files in sass, or less, and specify those files in the @Component.styleUrls metadata with the appropriate extensions (.scss, .less) as in the following example:</p>
+
+                                        <code-example code="
+                                            @Component({
+                                                selector: 'app-root',
+                                                templateUrl: './app.component.html',
+                                                styleUrls: ['./app.component.scss']
+                                            })
+                                            ...
+                                        "></code-example>
+
+                                        <p>When generating a component file with ng generate component, the CLI emits an empty CSS styles file (.css) by default. You can configure the CLI to default to your preferred CSS preprocessor as explained in the Workspace configuration guide.</p>
+
+                                        <p class="note">Style strings added to the @Component.styles array must be written in CSS because the CLI cannot apply a preprocessor to inline styles.</p>
+                                    </ng-container>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template> 
+
+<ng-template #contentProjectionTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Content projection
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #contentProjectionContent>
+            <ng-container #description>
+                <p>This topic describes how to use content projection to create flexible, reusable components.</p>
+                <p>Content projection is a pattern in which you insert, or project, the content you want to use inside another component. For example, you could have a Card component that accepts content provided by another component.</p>
+                <p>The following sections describe common implementations of content projection in Angular, including:</p>
+                <ul>
+                    <li>Single-slot content projection. With this type of content projection, a component accepts content from a single source.</li>
+                    <li>Multi-slot content projection. In this scenario, a component accepts content from multiple sources.</li>
+                    <li>Conditional content projection. Components that use conditional content projection render content only when specific conditions are met.</li>
+                </ul>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Single-slot
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>The most basic form of content projection is single-slot content projection. Single-slot content projection refers to creating a component into which you can project one component.</p>
+
+                            <p>To create a component that uses single-slot content projection:</p>
+                            <ol>
+                                <li>Create a component.</li>
+                                <li>In the template for your component, add an < ng-content> element where you want the projected content to appear.</li>
+                            </ol>
+
+                            <p>For example, the following component uses an < ng-content> element to display a message.</p>
+                            <code-example code="
+                                import { Component } from '@angular/core';
+
+                                @Component({
+                                    selector: 'app-zippy-basic',
+                                    template: `
+                                    < h2>Single-slot content projection</h2>
+                                    < ng-content></ng-content>
+                                    `
+                                })
+                                export class ZippyBasicComponent {}
+                            "></code-example>
+
+                            <p>With the < ng-content> element in place, users of this component can now project their own message into the component. For example:</p>
+                            <code-example code="
+                                <app-zippy-basic>
+                                    <p>Is content projection cool?</p>
+                                </app-zippy-basic>
+                            "></code-example>
+
+                            <p class="note">The < ng-content> element is a placeholder that does not create a real DOM element. Custom attributes applied to < ng-content> are ignored.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Multi-slot
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description2>
+                            <p>A component can have multiple slots. Each slot can specify a CSS selector that determines which content goes into that slot. This pattern is referred to as multi-slot content projection. With this pattern, you must specify where you want the projected content to appear. You accomplish this task by using the select attribute of < ng-content>.</p>
+                            <p>To create a component that uses multi-slot content projection:</p>
+                            <ol>
+                                <li>Create a component.</li>
+                                <li>In the template for your component, add an < ng-content> element where you want the projected content to appear.</li>
+                                <li>
+                                    Add a select attribute to the < ng-content> elements. Angular supports selectors for any combination of tag name, attribute, CSS class, and the :not pseudo-class.
+                                    For example, the following component uses two < ng-content> elements.
+                                    
+                                    <code-example code="
+                                        import { Component } from '@angular/core';
+
+                                        @Component({
+                                            selector: 'app-zippy-multislot',
+                                            template: `
+                                                <h 2>Multi-slot content projection</h2>
+                                                Default:
+                                                < ng-content></ng-content>
+                                                Question:
+                                                < ng-content select='[question]'></ng-content>
+                                            `
+                                        })
+                                        export class ZippyMultislotComponent {}
+                                    "></code-example>
+                                </li>
+                            </ol>
+
+                            <p>Content that uses the question attribute is projected into the < ng-content> element with the select=[question] attribute.</p>
+                            <code-example code="
+                                < app-zippy-multislot>
+                                    < p question>
+                                        Is content projection cool?
+                                    </p>
+                                    < p>Let's learn about content projection!</p>
+                                </app-zippy-multislot>
+                            "></code-example>
+
+                            <!-- <p class="note"> -->
+                                <span class="title">
+                                    NG-CONTENT WITHOUT A SELECT ATTRIBUTE
+                                </span>
+                                <p>If your component includes an < ng-content> element without a select attribute, that instance receives all projected components that do not match any of the other < ng-content> elements.</p>
+                                <p>In the preceding example, only the second < ng-content> element defines a select attribute. As a result, the first < ng-content> element receives any other content projected into the component.</p>
+                            <!-- </p> -->
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Conditional
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description3>
+                            <p>If your component needs to conditionally render content, or render content multiple times, you should configure that component to accept an < ng-template> element that contains the content you want to conditionally render.</p>
+                            <p>Using an < ng-content> element in these cases is not recommended, because when the consumer of a component supplies the content, that content is always initialized, even if the component does not define an < ng-content> element or if that < ng-content> element is inside of an ngIf statement.</p>
+                            <p>With an < ng-template> element, you can have your component explicitly render content based on any condition you want, as many times as you want. Angular will not initialize the content of an < ng-template> element until that element is explicitly rendered.</p>
+                            <p>The following steps demonstrate a typical implementation of conditional content projection using < ng-template>.</p>
+                            <ol>
+                                <li>Create a component.</li>
+                                <li>
+                                    In the component that accepts an < ng-template> element, use an < ng-container> element to render that template, such as:
+
+                                    <code-example code="
+                                      < ng-container [ngTemplateOutlet]='content.templateRef'> </ng-container>
+                                    "></code-example>
+
+                                    <p>This example uses the ngTemplateOutlet directive to render a given < ng-template> element, which you will define in a later step. You can apply an ngTemplateOutlet directive to any type of element. This example assigns the directive to an < ng-container> element because the component does not need to render a real DOM element.</p>
+                                </li>
+                                <li>
+                                    Wrap the < ng-container> element in another element, such as a div element, and apply your conditional logic.
+                                    <code-example code="
+                                        < div *ngIf='expanded' [id]='contentId'>
+                                            < ng-container [ngTemplateOutlet]='content.templateRef'> </ng-container>
+                                        </div>
+                                    "></code-example>
+                                </li>
+                                <li>
+                                    In the template where you want to project content, wrap the projected content in an < ng-template> element, such as:
+                                    <code-example code="
+                                        < ng-template appExampleZippyContent>
+                                            It depends on what you do with it.
+                                        </ng-template>
+                                    "></code-example>
+
+                                    <p>The < ng-template> element defines a block of content that a component can render based on its own logic. A component can get a reference to this template content, or TemplateRef, by using either the @ContentChild or @ContentChildren decorators. The preceding example creates a custom directive, appExampleZippyContent, as an API to mark the < ng-template> for the component's content. With the TemplateRef, the component can render the referenced content by using either the ngTemplateOutlet directive, or with the ViewContainerRef method createEmbeddedView().</p>
+                                </li>
+                                <li>
+                                    Create an attribute directive with a selector that matches the custom attribute for your template. In this directive, inject a TemplateRef instance.
+                                    <code-example code="
+                                        @Directive({
+                                            selector: '[appExampleZippyContent]'
+                                        })
+                                        export class ZippyContentDirective {
+                                            constructor(public templateRef: TemplateRef<unknown>) {}
+                                        }
+                                    "></code-example>
+
+                                    <p>In the previous step, you added an < ng-template> element with a custom attribute, appExampleZippyDirective. This code provides the logic that Angular will use when it encounters that custom attribute. In this case, that logic instructs Angular to instantiate a template reference.</p>
+                                </li>
+                                <li>
+                                    In the component you want to project content into, use @ContentChild to get the template of the projected content.
+
+                                    <code-example code="
+                                     @ContentChild(ZippyContentDirective) content!: ZippyContentDirective;
+                                    "></code-example>
+
+                                    <p>Prior to this step, your application has a component that instantiates a template when certain conditions are met. You've also created a directive that provides a reference to that template. In this last step, the @ContentChild decorator instructs Angular to instantiate the template in the designated component.</p>
+
+                                    <p class="note">In the case of multi-slot content projection, you can use @ContentChildren to get a QueryList of projected elements.</p>
+                                </li>
+                            </ol>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Complex environments
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description4>
+                            <p>As described in Multi-slot Content Projection, you typically use either an attribute, element, CSS Class, or some combination of all three to identify where to project your content. For example, in the following HTML template, a paragraph tag uses a custom attribute, question, to project content into the app-zippy-multislot component.</p>
+
+                            <code-example code="
+                                < app-zippy-multislot>
+                                    < p question>
+                                     Is content projection cool?
+                                    </p>
+                                    < p>Let's learn about content projection!</p>
+                                </app-zippy-multislot>
+                            "></code-example>
+
+                            <p>In some cases, you might want to project content as a different element. For example, the content you want to project might be a child of another element. You can accomplish this by using the ngProjectAs attribute.</p>
+
+                            <p>For instance, consider the following HTML snippet:</p>
+                            <code-example code="
+                                < ng-container ngProjectAs='[question]'>
+                                    < p>Is content projection cool?</p>
+                                </ng-container>
+                            "></code-example>
+
+                            <p>This example uses an < ng-container> attribute to simulate projecting a component into a more complex structure.</p>
+
+                            <!-- <p class="note"> -->
+                                <span class="title">
+                                    REMINDER
+                                </span>
+                                <p>The < ng-container> element is a logical construct that you can use to group other DOM elements; however, the < ng-container> itself is not rendered in the DOM tree.</p>
+                            <!-- </p> -->
+
+                            <p>In this example, the content we want to project resides inside another element. To project this content as intended, the template uses the ngProjectAs attribute. With ngProjectAs, the entire < ng-container> element is projected into a component using the [question] selector.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #dynamicComponentLoaderTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Dynamic component loader
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #dynamicComponentLoaderContent>
+            <ng-container #description>
+                <p>Component templates are not always fixed. An application may need to load new components at runtime.</p>
+                <p>This cookbook shows you how to use ComponentFactoryResolver to add components dynamically.</p>
+
+                <p>The following example shows how to build a dynamic ad banner.</p>
+                <p>The hero agency is planning an ad campaign with several different ads cycling through the banner. New ad components are added frequently by several different teams. This makes it impractical to use a template with a static component structure.</p>
+                <p>Instead, you need a way to load a new component without a fixed reference to the component in the ad banner's template.</p>
+                <p>Angular comes with its own API for loading components dynamically.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                The anchor directive
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>Before you can add components you have to define an anchor point to tell Angular where to insert components.</p>
+                            <p>The ad banner uses a helper directive called AdDirective to mark valid insertion points in the template.</p>
+
+                            <code-example code="
+                                import { Directive, ViewContainerRef } from '@angular/core';
+
+                                @Directive({
+                                    selector: '[adHost]',
+                                })
+                                    export class AdDirective {
+                                    constructor(public viewContainerRef: ViewContainerRef) { }
+                                }
+                            "></code-example>
+
+                            <p>AdDirective injects ViewContainerRef to gain access to the view container of the element that will host the dynamically added component.</p>
+                            <p>In the @Directive decorator, notice the selector name, adHost; that's what you use to apply the directive to the element. The next section shows you how.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Loading components
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description2>
+                            <p>Most of the ad banner implementation is in ad-banner.component.ts. To keep things simple in this example, the HTML is in the @Component decorator's template property as a template string.</p>
+                            <p>The < ng-template> element is where you apply the directive you just made. To apply the AdDirective, recall the selector from ad.directive.ts, [adHost]. Apply that to < ng-template> without the square brackets. Now Angular knows where to dynamically load components.</p>
+                            <code-example code="
+                                template: `
+                                    < div class='ad-banner-example'>
+                                        < h3>Advertisements</h3>
+                                        < ng-template adHost></ng-template>
+                                    </div>
+                                `
+                            "></code-example>
+
+                            <p>The < ng-template> element is a good choice for dynamic components because it doesn't render any additional output.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Resolving components
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description3>
+                            <p>AdBannerComponent takes an array of AdItem objects as input, which ultimately comes from AdService. AdItem objects specify the type of component to load and any data to bind to the component.AdService returns the actual ads making up the ad campaign.</p>
+                            <p>Passing an array of components to AdBannerComponent allows for a dynamic list of ads without static elements in the template.</p>
+                            <p>With its getAds() method, AdBannerComponent cycles through the array of AdItems and loads a new component every 3 seconds by calling loadComponent().</p>
+                            <code-example code="
+                                export class AdBannerComponent implements OnInit, OnDestroy {
+
+                                    @Input() ads: AdItem[] = [];
+                                
+                                    currentAdIndex = -1;
+                                
+                                    @ViewChild(AdDirective, {static: true}) adHost!: AdDirective;
+                                    interval: number | undefined;
+                                
+                                    constructor(private componentFactoryResolver: ComponentFactoryResolver) { }
+                                
+                                    ngOnInit() {
+                                        this.loadComponent();
+                                        this.getAds();
+                                    }
+                                
+                                    ngOnDestroy() {
+                                        clearInterval(this.interval);
+                                    }
+                                
+                                    loadComponent() {
+                                        this.currentAdIndex = (this.currentAdIndex + 1) % this.ads.length;
+                                        const adItem = this.ads[this.currentAdIndex];
+                                    
+                                        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(adItem.component);
+                                    
+                                        const viewContainerRef = this.adHost.viewContainerRef;
+                                        viewContainerRef.clear();
+                                    
+                                        const componentRef = viewContainerRef.createComponent<AdComponent>(componentFactory);
+                                        componentRef.instance.data = adItem.data;
+                                    }
+                                
+                                    getAds() {
+                                        this.interval = setInterval(() => {
+                                            this.loadComponent();
+                                        }, 3000);
+                                    }
+                                }
+                            "></code-example>
+
+                            <p>The loadComponent() method is doing a lot of the heavy lifting here. Take it step by step. First, it picks an ad.</p>
+                            <p>The loadComponent() method chooses an ad using some math. First, it sets the currentAdIndex by taking whatever it currently is plus one, dividing that by the length of the AdItem array, and using the remainder as the new currentAdIndex value. Then, it uses that value to select an adItem from the array.</p>
+                            <p>After loadComponent() selects an ad, it uses ComponentFactoryResolver to resolve a ComponentFactory for each specific component. The ComponentFactory then creates an instance of each component.</p>
+                            <p>Next, you're targeting the viewContainerRef that exists on this specific instance of the component. How do you know it's this specific instance? Because it's referring to adHost and adHost is the directive you set up earlier to tell Angular where to insert dynamic components.</p>
+                            <p>As you may recall, AdDirective injects ViewContainerRef into its constructor. This is how the directive accesses the element that you want to use to host the dynamic component.</p>
+                            <p>To add the component to the template, you call createComponent() on ViewContainerRef.</p>
+                            <p>The createComponent() method returns a reference to the loaded component. Use that reference to interact with the component by assigning to its properties or calling its methods.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                The AdComponent interface
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description4>
+                            <p>In the ad banner, all components implement a common AdComponent interface to standardize the API for passing data to the components.</p>
+                            <p>Here are two sample components and the AdComponent interface for reference:</p>
+                            <code-example code="
+                                import { Component, Input } from '@angular/core';
+
+                                import { AdComponent } from './ad.component';
+                                
+                                @Component({
+                                template: `
+                                    <d iv class='job-ad'>
+                                    < h4>{data.headline}</h4>
+                                        {data.body}
+                                    </div>
+                                `
+                                })
+                                export class HeroJobAdComponent implements AdComponent {
+                                    @Input() data: any;
+                                }
+                            "></code-example>
+
+                            <code-example code="
+                                import { Component, Input } from '@angular/core';
+
+                                import { AdComponent } from './ad.component';
+                                
+                                @Component({
+                                template: `
+                                    < div class='hero-profile'>
+                                        < h3>Featured Hero Profile</h3>
+                                        < h4>{data.name}</h4>
+                                    
+                                        < p>{data.bio}</p>
+                                    
+                                        < strong>Hire this hero today!</strong>
+                                    </div>
+                                `
+                                })
+                                export class HeroProfileComponent implements AdComponent {
+                                 @Input() data: any;
+                                }
+                            "></code-example>
+
+                            <code-example code="
+                                export interface AdComponent {
+                                    data: any;
+                                }
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
+
+<ng-template #angularElementsTemplate>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Angular elements
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <ng-container #angularElementsContent>
+            <ng-container #description>
+                <p>Angular elements are Angular components packaged as custom elements (also called Web Components), a web standard for defining new HTML elements in a framework-agnostic way.</p>
+                <p>Custom elements are a Web Platform feature currently supported by Chrome, Edge (Chromium-based), Firefox, Opera, and Safari, and available in other browsers through polyfills (see Browser Support). A custom element extends HTML by allowing you to define a tag whose content is created and controlled by JavaScript code. The browser maintains a CustomElementRegistry of defined custom elements, which maps an instantiable JavaScript class to an HTML tag.</p>
+                <p>The @angular/elements package exports a createCustomElement() API that provides a bridge from Angular's component interface and change detection functionality to the built-in DOM API.</p>
+                <p>Transforming a component to a custom element makes all of the required Angular infrastructure available to the browser. Creating a custom element is simple and straightforward, and automatically connects your component-defined view with change detection and data binding, mapping Angular functionality to the corresponding native HTML equivalents.</p>
+            </ng-container>
+
+            <ng-container #content1>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Using custom elements
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description1>
+                            <p>Custom elements bootstrap themselves - they start automatically when they are added to the DOM, and are automatically destroyed when removed from the DOM. Once a custom element is added to the DOM for any page, it looks and behaves like any other HTML element, and does not require any special knowledge of Angular terms or usage conventions.</p>
+                            <ul>
+                                <li>
+                                    <p>Easy dynamic content in an Angular application</p>
+                                    <p>Transforming a component to a custom element provides an easy path to creating dynamic HTML content in your Angular application. HTML content that you add directly to the DOM in an Angular application is normally displayed without Angular processing, unless you define a dynamic component, adding your own code to connect the HTML tag to your application data, and participate in change detection. With a custom element, all of that wiring is taken care of automatically.</p>
+                                </li>
+                                <li>
+                                    <p>Content-rich applications</p>
+                                    <p>If you have a content-rich application, such as the Angular app that presents this documentation, custom elements let you give your content providers sophisticated Angular functionality without requiring knowledge of Angular. For example, an Angular guide like this one is added directly to the DOM by the Angular navigation tools, but can include special elements like < code-snippet> that perform complex operations. All you need to tell your content provider is the syntax of your custom element. They don't need to know anything about Angular, or anything about your component's data structures or implementation.</p>
+                                </li>
+                            </ul>
+
+                            <h3>How it works</h3>
+                            <p>Use the createCustomElement() function to convert a component into a class that can be registered with the browser as a custom element. After you register your configured class with the browser's custom-element registry, you can use the new element just like a built-in HTML element in content that you add directly into the DOM:</p>
+                            <code-example code="
+                                < my-popup message='Use Angular!'></my-popup>
+                            "></code-example>
+
+                            <p>When your custom element is placed on a page, the browser creates an instance of the registered class and adds it to the DOM. The content is provided by the component's template, which uses Angular template syntax, and is rendered using the component and DOM data. Input properties in the component correspond to input attributes for the element.</p>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content2>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Transforming components to custom elements
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description2>
+                            <p>Angular provides the createCustomElement() function for converting an Angular component, together with its dependencies, to a custom element. The function collects the component's observable properties, along with the Angular functionality the browser needs to create and destroy instances, and to detect and respond to changes.</p>
+                            <p>The conversion process implements the NgElementConstructor interface, and creates a constructor class that is configured to produce a self-bootstrapping instance of your component.</p>
+                            <p>Use the built-in customElements.define() function to register the configured constructor and its associated custom-element tag with the browser's CustomElementRegistry. When the browser encounters the tag for the registered element, it uses the constructor to create a custom-element instance.</p>
+                            <p class="note">
+                                Avoid using the @Component selector as the custom-element tag name. This can lead to unexpected behavior, due to Angular creating two component instances for a single DOM element: One regular Angular component and a second one using the custom element.
+                            </p>
+
+                            <h3>Mapping</h3>
+                            <p>A custom element hosts an Angular component, providing a bridge between the data and logic defined in the component and standard DOM APIs. Component properties and logic maps directly into HTML attributes and the browser's event system.</p>
+                            <ul>
+                                <li>The creation API parses the component looking for input properties, and defines corresponding attributes for the custom element. It transforms the property names to make them compatible with custom elements, which do not recognize case distinctions. The resulting attribute names use dash-separated lowercase. For example, for a component with @Input('myInputProp') inputProp, the corresponding custom element defines an attribute my-input-prop.</li>
+                                <li>Component outputs are dispatched as HTML Custom Events, with the name of the custom event matching the output name. For example, for a component with @Output() valueChanged = new EventEmitter(), the corresponding custom element will dispatch events with the name "valueChanged", and the emitted data will be stored on the event’s detail property. If you provide an alias, that value is used; for example, @Output('myClick') clicks = new EventEmitter< string>(); results in dispatch events with the name "myClick".</li>
+                            </ul>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content3>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Browser support for custom elements
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description3>
+                            <p>The recently-developed custom elements Web Platform feature is currently supported natively in a number of browsers.</p>
+                            <ul>
+                                <li>Chrome</li>
+                                <li>Edge (Chromium-based)</li>
+                                <li>Firefox</li>
+                                <li>Opera</li>
+                                <li>Safari</li>
+                            </ul>
+
+                            <p>In browsers that support Custom Elements natively, the specification requires developers use ES2015 classes to define Custom Elements - developers can opt-in to this by setting the target: "es2015" property in their project's TypeScript configuration file. As Custom Element and ES2015 support may not be available in all browsers, developers can instead choose to use a polyfill to support older browsers and ES5 code.</p>
+
+                            <p>Use the Angular CLI to automatically set up your project with the correct polyfill:</p>
+                            <code-example code="
+                                ng add @angular/elements --project=*your_project_name*
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+
+            <ng-container #content4>
+                <mat-accordion>
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Typings for custom elements
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+    
+                        <ng-container #description4>
+                            <p>Generic DOM APIs, such as document.createElement() or document.querySelector(), return an element type that is appropriate for the specified arguments. For example, calling document.createElement('a') will return an HTMLAnchorElement, which TypeScript knows has an href property. Similarly, document.createElement('div') will return an HTMLDivElement, which TypeScript knows has no href property.</p>
+                            <p>When called with unknown elements, such as a custom element name (popup-element in our example), the methods will return a generic type, such as HTMLElement, since TypeScript can't infer the correct type of the returned element.</p>
+                            <p>ustom elements created with Angular extend NgElement (which in turn extends HTMLElement). Additionally, these custom elements will have a property for each input of the corresponding component. For example, our popup-element will have a message property of type string.</p>
+                            <p>There are a few options if you want to get correct types for your custom elements. Let's assume you create a my-dialog custom element based on the following component:</p>
+                            <code-example code="
+                                @Component(...)
+                                class MyDialog {
+                                    @Input() content: string;
+                                }
+                            "></code-example>
+
+                            <p>The most straightforward way to get accurate typings is to cast the return value of the relevant DOM methods to the correct type. For that, you can use the NgElement and WithProperties types (both exported from @angular/elements):</p>
+                            <code-example code="
+                                const aDialog = document.createElement('my-dialog') as NgElement & WithProperties<{content: string}>;
+                                aDialog.content = 'Hello, world!';
+                                aDialog.content = 123;  // <-- ERROR: TypeScript knows this should be a string.
+                                aDialog.body = 'News';  // <-- ERROR: TypeScript knows there is no `body` property on `aDialog`.
+                            "></code-example>
+
+                            <p>This is a good way to quickly get TypeScript features, such as type checking and autocomplete support, for your custom element. But it can get cumbersome if you need it in several places, because you have to cast the return type on every occurrence.</p>
+                            <p>An alternative way, that only requires defining each custom element's type once, is augmenting the HTMLElementTagNameMap, which TypeScript uses to infer the type of a returned element based on its tag name (for DOM methods such as document.createElement(), document.querySelector(), etc.):</p>
+                            <code-example code="
+                             declare global {
+                                interface HTMLElementTagNameMap {
+                                  'my-dialog': NgElement & WithProperties<{content: string}>;
+                                  'my-other-element': NgElement & WithProperties<{foo: 'bar'}>;
+                                  ...
+                                }
+                              }
+                            "></code-example>
+
+                            <p>Now, TypeScript can infer the correct type the same way it does for built-in elements:</p>
+                            <code-example code="
+                                document.createElement('div')               //--> HTMLDivElement (built-in element)
+                                document.querySelector('foo')               //--> Element        (unknown element)
+                                document.createElement('my-dialog')         //--> NgElement & WithProperties<{content: string}> (custom element)
+                                document.querySelector('my-other-element')  //--> NgElement & WithProperties<{foo: 'bar'}>      (custom element)
+                            "></code-example>
+                        </ng-container>
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </ng-container>
+        </ng-container>
+    </mat-expansion-panel>
+</ng-template>
